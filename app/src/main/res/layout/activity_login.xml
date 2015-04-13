@@ -33,14 +33,29 @@
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
                 android:textColor="#333"
-                android:textSize="18sp"/>
+                android:textSize="18sp"
+                android:visibility="invisible"/>
             <com.facebook.login.widget.ProfilePictureView
                 android:id="@+id/profilePicture"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
-                facebook:preset_size="normal"/>
+                facebook:preset_size="normal"
+                android:visibility="invisible"/>
+            <Button
+                android:id="@+id/invite"
+                android:text="@string/invite_bt_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:textSize="11sp"
+                android:textAllCaps="false"
+                android:visibility="invisible"
+                android:background="@color/com_facebook_blue"
+                android:padding="5dp"/>
+
         </LinearLayout>
     </LinearLayout>
 

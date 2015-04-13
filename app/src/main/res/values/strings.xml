@@ -12,4 +12,5 @@
     <string name="success">Success</string>
     <string name="exception">Exception: %1$s</string>
     <string name="error">Error</string>
+    <string name="invite_bt_text">Invite Friends</string>
 </resources>

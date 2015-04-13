@@ -1,10 +1,14 @@
 package com.appofy.android.pixshare;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -18,21 +22,32 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.ProfilePictureView;
-import com.facebook.share.widget.ShareDialog;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
+import com.facebook.share.widget.JoinAppGroupDialog;
+
+import bolts.AppLinks;
+//import com.facebook.share.widget.ShareDialog;
 
 public class LoginActivity extends FragmentActivity {
 
     private ProfilePictureView profilePictureView;
     private TextView greeting;
     private CallbackManager callbackManager;
-    private ShareDialog shareDialog;
+    //private ShareDialog shareDialog;
     private ProfileTracker profileTracker;
+    private Button inviteFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
+
+        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
+        if (targetUrl != null) {
+            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
+        }
 
         LoginManager.getInstance().registerCallback(callbackManager,
                 new FacebookCallback<LoginResult>() {
@@ -66,6 +81,45 @@ public class LoginActivity extends FragmentActivity {
 
         profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
         greeting = (TextView) findViewById(R.id.greeting);
+        inviteFriends = (Button) findViewById(R.id.invite);
+        inviteFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String appLinkUrl, previewImageUrl;
+                AppInviteDialog inviteDialog = new AppInviteDialog(LoginActivity.this);
+                appLinkUrl = "https://fb.me/1572691476322596";
+                //previewImageUrl = "https://www.mydomain.com/my_invite_image.jpg";
+
+                if (AppInviteDialog.canShow()) {
+                    AppInviteContent content = new AppInviteContent.Builder()
+                            .setApplinkUrl(appLinkUrl)
+                            //.setPreviewImageUrl(previewImageUrl)
+                            .build();
+                    //AppInviteDialog.show(LoginActivity.this, content);
+                    inviteDialog.registerCallback(callbackManager, new FacebookCallback<AppInviteDialog.Result>() {
+                        @Override
+                        public void onSuccess(AppInviteDialog.Result result) {
+                            //Log.i("SUCCESS ", "MainACtivity, InviteCallback - SUCCESS!");
+                            System.out.println("LoginACtivity, InviteCallback - SUCCESS!");
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            //Log.i("CANCEL ", "MainACtivity, InviteCallback - CANCEL!");
+                            System.out.println("LoginACtivity, InviteCallback - CANCEL!");
+                        }
+
+                        @Override
+                        public void onError(FacebookException error) {
+                            //Log.e("ERROR ", "MainACtivity, InviteCallback - ERROR! " + error.getMessage());
+                            System.out.println("LoginACtivity, InviteCallback - ERROR!"+ error.getMessage());
+                        }
+                    });
+                    inviteDialog.show(content);
+                }
+            }
+        });
+
     }
 
     @Override
@@ -109,11 +163,17 @@ public class LoginActivity extends FragmentActivity {
         boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
         Profile profile = Profile.getCurrentProfile();
         if (enableButtons && profile != null) {
+            profilePictureView.setVisibility(View.VISIBLE);
             profilePictureView.setProfileId(profile.getId());
+            greeting.setVisibility(View.VISIBLE);
             greeting.setText(getString(R.string.hello_user, profile.getFirstName()));
+            inviteFriends.setVisibility(View.VISIBLE);
         } else {
             profilePictureView.setProfileId(null);
+            profilePictureView.setVisibility(View.INVISIBLE);
             greeting.setText(null);
+            greeting.setVisibility(View.INVISIBLE);
+            inviteFriends.setVisibility(View.INVISIBLE);
         }
     }
 
