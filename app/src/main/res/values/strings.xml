@@ -13,4 +13,10 @@
     <string name="exception">Exception: %1$s</string>
     <string name="error">Error</string>
     <string name="invite_bt_text">Invite Friends</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_launch">LaunchActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>

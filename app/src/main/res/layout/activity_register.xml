@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dip">
+
+    <LinearLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="50dip"/>
+
+    <!-- First Name input text -->
+    <EditText android:id="@+id/txtFirstName"
+        android:hint="First Name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"/>
+
+    <!-- Last Name input text -->
+    <EditText android:id="@+id/txtLastName"
+        android:hint="Last Name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"/>
+
+    <!-- Username input text -->
+    <EditText android:id="@+id/txtRegUsername"
+        android:hint="Username"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"/>
+
+    <!-- Email input text -->
+    <EditText android:id="@+id/txtRegEmail"
+        android:hint="Email"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"/>
+
+    <!-- Password input text -->
+    <EditText android:id="@+id/txtRegPassword"
+        android:hint="Password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:password="true"
+        android:singleLine="true"/>
+
+    <!-- Confirm Password input text -->
+    <EditText android:id="@+id/txtConfirmPassword"
+        android:hint="Confirm Password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dip"
+        android:password="true"
+        android:singleLine="true"/>
+
+    <!-- Submit button -->
+    <Button android:id="@+id/btnSubmit"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+</LinearLayout>

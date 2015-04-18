@@ -1,180 +1,81 @@
 package com.appofy.android.pixshare;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.view.View;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.Profile;
-import com.facebook.ProfileTracker;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.ProfilePictureView;
-import com.facebook.share.model.AppInviteContent;
-import com.facebook.share.widget.AppInviteDialog;
-import com.facebook.share.widget.JoinAppGroupDialog;
-
-import bolts.AppLinks;
-//import com.facebook.share.widget.ShareDialog;
+import com.appofy.android.pixshare.util.SessionManager;
 
 public class LoginActivity extends FragmentActivity {
 
-    private ProfilePictureView profilePictureView;
-    private TextView greeting;
-    private CallbackManager callbackManager;
-    //private ShareDialog shareDialog;
-    private ProfileTracker profileTracker;
-    private Button inviteFriends;
+    // Email, password edittext
+    EditText txtUsername, txtPassword;
+
+    // login button
+    Button btnLogin;
+
+    // Session Manager Class
+    SessionManager session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
-
-        Uri targetUrl = AppLinks.getTargetUrlFromInboundIntent(this, getIntent());
-        if (targetUrl != null) {
-            Log.i("Activity", "App Link Target URL: " + targetUrl.toString());
-        }
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        updateUI();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        updateUI();
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        updateUI();
-                    }
-
-                });
-
         setContentView(R.layout.activity_login);
-        profileTracker = new ProfileTracker() {
+
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
+
+        // Email, Password input text
+        txtUsername = (EditText) findViewById(R.id.txtUsername);
+        txtPassword = (EditText) findViewById(R.id.txtPassword);
+
+        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+
+
+        // Login button
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+
+
+        // Login button click event
+        btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
-            protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
-                updateUI();
-            }
+            public void onClick(View arg0) {
+                // Get username, password from EditText
+                String username = txtUsername.getText().toString();
+                String password = txtPassword.getText().toString();
 
-        };
-
-        profilePictureView = (ProfilePictureView) findViewById(R.id.profilePicture);
-        greeting = (TextView) findViewById(R.id.greeting);
-        inviteFriends = (Button) findViewById(R.id.invite);
-        inviteFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String appLinkUrl, previewImageUrl;
-                AppInviteDialog inviteDialog = new AppInviteDialog(LoginActivity.this);
-                appLinkUrl = "https://fb.me/1572691476322596";
-                //previewImageUrl = "https://www.mydomain.com/my_invite_image.jpg";
-
-                if (AppInviteDialog.canShow()) {
-                    AppInviteContent content = new AppInviteContent.Builder()
-                            .setApplinkUrl(appLinkUrl)
-                            //.setPreviewImageUrl(previewImageUrl)
-                            .build();
-                    //AppInviteDialog.show(LoginActivity.this, content);
-                    inviteDialog.registerCallback(callbackManager, new FacebookCallback<AppInviteDialog.Result>() {
-                        @Override
-                        public void onSuccess(AppInviteDialog.Result result) {
-                            //Log.i("SUCCESS ", "MainACtivity, InviteCallback - SUCCESS!");
-                            System.out.println("LoginACtivity, InviteCallback - SUCCESS!");
-                        }
-
-                        @Override
-                        public void onCancel() {
-                            //Log.i("CANCEL ", "MainACtivity, InviteCallback - CANCEL!");
-                            System.out.println("LoginACtivity, InviteCallback - CANCEL!");
-                        }
-
-                        @Override
-                        public void onError(FacebookException error) {
-                            //Log.e("ERROR ", "MainACtivity, InviteCallback - ERROR! " + error.getMessage());
-                            System.out.println("LoginACtivity, InviteCallback - ERROR!"+ error.getMessage());
-                        }
-                    });
-                    inviteDialog.show(content);
+                // Check if username, password is filled
+                if(username.trim().length() > 0 && password.trim().length() > 0){
+                     session.createLoginSession("Android Hive", "anroidhive@gmail.com");
+                     // Staring MainActivity
+                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                     // Closing all the Activities
+                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                     // Add new Flag to start new Activity
+                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                     startActivity(i);
+                     finish();
+                }else{
+                    // user didn't entered username or password
+                    // Show alert asking him to enter the details
+                    //alert.showAlertDialog(LoginActivity.this, "Login failed..", "Please enter username and password", false);
+                    Toast.makeText(getApplicationContext(), "Login failed, Please enter username and password", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Call the 'activateApp' method to log an app event for use in analytics and advertising
-        // reporting.  Do so in the onResume methods of the primary Activities that an app may be
-        // launched into.
-        AppEventsLogger.activateApp(this);
-        updateUI();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        // Call the 'deactivateApp' method to log an app event for use in analytics and advertising
-        // reporting.  Do so in the onPause methods of the primary Activities that an app may be
-        // launched into.
-        AppEventsLogger.deactivateApp(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
-
-    private void updateUI() {
-        boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
-        Profile profile = Profile.getCurrentProfile();
-        if (enableButtons && profile != null) {
-            profilePictureView.setVisibility(View.VISIBLE);
-            profilePictureView.setProfileId(profile.getId());
-            greeting.setVisibility(View.VISIBLE);
-            greeting.setText(getString(R.string.hello_user, profile.getFirstName()));
-            inviteFriends.setVisibility(View.VISIBLE);
-        } else {
-            profilePictureView.setProfileId(null);
-            profilePictureView.setVisibility(View.INVISIBLE);
-            greeting.setText(null);
-            greeting.setVisibility(View.INVISIBLE);
-            inviteFriends.setVisibility(View.INVISIBLE);
-        }
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //finish();
     }
 
     @Override
