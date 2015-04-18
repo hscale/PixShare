@@ -61,7 +61,7 @@ public class RegisterActivity extends ActionBarActivity {
                     }else{
                         //code to register to backend start
 
-                        //end
+                        //end code to register to backend start
                         session.createLoginSession("Android Hive", "anroidhive@gmail.com");
                         // Staring MainActivity
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
