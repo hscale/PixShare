@@ -36,7 +36,13 @@ public class SessionManager {
     public static final String KEY_NAME = "name";
 
     // Email address (make variable public to access from outside)
-    public static final String KEY_EMAIL = "email";
+    //public static final String KEY_EMAIL = "email";
+
+    // User password (make variable public to access from outside)
+    public static final String KEY_PASSWORD = "password";
+
+    // User login type (make variable public to access from outside)
+    public static final String KEY_SOCIAL_MEDIA_FLAG = "socialMediaFlag";
 
     // Constructor
     public SessionManager(Context context){
@@ -48,7 +54,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name, String email){
+    public void createLoginSession(String name,String password,String socialMediaFlag){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
@@ -56,7 +62,13 @@ public class SessionManager {
         editor.putString(KEY_NAME, name);
 
         // Storing email in pref
-        editor.putString(KEY_EMAIL, email);
+        //editor.putString(KEY_EMAIL, email);
+
+        // Storing password in pref
+        editor.putString(KEY_PASSWORD, password);
+
+        // Storing login type in pref
+        editor.putString(KEY_SOCIAL_MEDIA_FLAG, socialMediaFlag);
 
         // commit changes
         editor.commit();
@@ -106,7 +118,13 @@ public class SessionManager {
         user.put(KEY_NAME, pref.getString(KEY_NAME, null));
 
         // user email id
-        user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+        //user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
+
+        // user password
+        user.put(KEY_PASSWORD, pref.getString(KEY_PASSWORD, null));
+
+        // user login type
+        user.put(KEY_SOCIAL_MEDIA_FLAG, pref.getString(KEY_SOCIAL_MEDIA_FLAG, null));
 
         // return user
         return user;

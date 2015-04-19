@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
         session = new SessionManager(getApplicationContext());
 
         TextView lblName = (TextView) findViewById(R.id.lblName);
-        TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
+        //TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
 
         // Button logout
         btnLogout = (Button) findViewById(R.id.btnLogout);
@@ -56,11 +56,11 @@ public class MainActivity extends ActionBarActivity {
         String name = user.get(SessionManager.KEY_NAME);
 
         // email
-        String email = user.get(SessionManager.KEY_EMAIL);
+        //String email = user.get(SessionManager.KEY_EMAIL);
 
         // displaying user data
         lblName.setText(Html.fromHtml("Name: <b>" + name + "</b>"));
-        lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
+        //lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
 
 
         /**

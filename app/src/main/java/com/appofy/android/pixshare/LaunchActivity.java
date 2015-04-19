@@ -34,7 +34,6 @@ public class LaunchActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         finish();
     }
 
