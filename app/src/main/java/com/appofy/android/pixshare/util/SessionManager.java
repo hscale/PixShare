@@ -103,11 +103,10 @@ public class SessionManager {
 
             // Staring Login Activity
             _context.startActivity(i);
+
         }
 
     }
-
-
 
     /**
      * Get stored session data
@@ -134,6 +133,11 @@ public class SessionManager {
      * Clear session details
      * */
     public void logoutUser(){
+
+        /*if(KEY_SOCIAL_MEDIA_FLAG.equals("T")){
+            LoginManager.getInstance().logOut();
+        }*/
+
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();

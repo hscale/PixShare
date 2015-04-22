@@ -80,8 +80,8 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        Toast.makeText(getApplicationContext(), "You are on Home Page..." , Toast.LENGTH_LONG).show();
-        //finish();
+        //Toast.makeText(getApplicationContext(), "You are on Home Page..." , Toast.LENGTH_LONG).show();
+        finish();
     }
 
     @Override
