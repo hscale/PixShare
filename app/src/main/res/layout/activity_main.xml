@@ -14,6 +14,14 @@
         android:layout_marginTop="40dip"
         android:layout_marginBottom="10dip"/>
 
+    <TextView
+        android:id="@+id/lblFriendsList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="false"
+        android:scrollbars = "vertical"
+        />
+
     <!-- Email Label -->
     <TextView
         android:id="@+id/lblEmail"
