@@ -12,6 +12,7 @@ import android.content.SharedPreferences.Editor;
 
 import com.appofy.android.pixshare.LoginActivity;
 import com.appofy.android.pixshare.MainActivity;
+import com.facebook.login.LoginManager;
 
 public class SessionManager {
     // Shared Preferences
@@ -32,8 +33,8 @@ public class SessionManager {
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
 
-    // User name (make variable public to access from outside)
-    public static final String KEY_NAME = "name";
+    // User id (make variable public to access from outside)
+    public static final String KEY_USER_ID = "userId";
 
     // Email address (make variable public to access from outside)
     //public static final String KEY_EMAIL = "email";
@@ -43,6 +44,9 @@ public class SessionManager {
 
     // User login type (make variable public to access from outside)
     public static final String KEY_SOCIAL_MEDIA_FLAG = "socialMediaFlag";
+
+    // User Social login id (make variable public to access from outside)
+    public static final String KEY_SOCIAL_MEDIA_ID = "socialMediaId";
 
     // Constructor
     public SessionManager(Context context){
@@ -54,12 +58,12 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String name,String password,String socialMediaFlag){
+    public void createLoginSession(String userId,String password,String socialMediaFlag, String socialMediaId){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
 
-        // Storing name in pref
-        editor.putString(KEY_NAME, name);
+        // Storing userId in pref
+        editor.putString(KEY_USER_ID, userId);
 
         // Storing email in pref
         //editor.putString(KEY_EMAIL, email);
@@ -69,6 +73,9 @@ public class SessionManager {
 
         // Storing login type in pref
         editor.putString(KEY_SOCIAL_MEDIA_FLAG, socialMediaFlag);
+
+        // Storing social media is in pref
+        editor.putString(KEY_SOCIAL_MEDIA_ID, socialMediaId);
 
         // commit changes
         editor.commit();
@@ -114,7 +121,7 @@ public class SessionManager {
     public HashMap<String, String> getUserDetails(){
         HashMap<String, String> user = new HashMap<String, String>();
         // user name
-        user.put(KEY_NAME, pref.getString(KEY_NAME, null));
+        user.put(KEY_USER_ID, pref.getString(KEY_USER_ID, null));
 
         // user email id
         //user.put(KEY_EMAIL, pref.getString(KEY_EMAIL, null));
@@ -125,6 +132,9 @@ public class SessionManager {
         // user login type
         user.put(KEY_SOCIAL_MEDIA_FLAG, pref.getString(KEY_SOCIAL_MEDIA_FLAG, null));
 
+        // user social media id
+        user.put(KEY_SOCIAL_MEDIA_ID, pref.getString(KEY_SOCIAL_MEDIA_ID, null));
+
         // return user
         return user;
     }
@@ -134,9 +144,17 @@ public class SessionManager {
      * */
     public void logoutUser(){
 
-        /*if(KEY_SOCIAL_MEDIA_FLAG.equals("T")){
-            LoginManager.getInstance().logOut();
-        }*/
+        System.out.println("KEY_SOCIAL_MEDIA_FLAG value:::::::::: "+pref.getString(KEY_SOCIAL_MEDIA_FLAG,null));
+        System.out.println("KEY_SOCIAL_MEDIA_ID value:::::::::: "+pref.getString(KEY_SOCIAL_MEDIA_ID,null));
+        if(pref.getString(KEY_SOCIAL_MEDIA_FLAG,null).equals("T")){
+            if(pref.getString(KEY_SOCIAL_MEDIA_ID,null).equals("1")){
+                System.out.println("############in if statement############");
+                LoginManager.getInstance().logOut(); //logout from facebook
+            }else if(pref.getString(KEY_SOCIAL_MEDIA_ID,null).equals("2")){
+                //logout from twitter
+            }
+
+        }
 
         // Clearing all data from Shared Preferences
         editor.clear();

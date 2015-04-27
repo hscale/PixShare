@@ -14,7 +14,6 @@ import com.appofy.android.pixshare.util.SessionManager;
 
 import java.util.HashMap;
 
-
 public class MainActivity extends ActionBarActivity {
 
     // Session Manager Class
@@ -32,6 +31,7 @@ public class MainActivity extends ActionBarActivity {
         session = new SessionManager(getApplicationContext());
 
         TextView lblName = (TextView) findViewById(R.id.lblName);
+        TextView lblFriendList = (TextView) findViewById(R.id.lblFriendsList);
         //TextView lblEmail = (TextView) findViewById(R.id.lblEmail);
 
         // Button logout
@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
 
-        if(!session.isLoggedIn()){
+        if (!session.isLoggedIn()) {
             /**
              * Call this function whenever you want to check user login
              * This will redirect user to LoginActivity is he is not
@@ -53,13 +53,13 @@ public class MainActivity extends ActionBarActivity {
         HashMap<String, String> user = session.getUserDetails();
 
         // name
-        String name = user.get(SessionManager.KEY_NAME);
+        String userId = user.get(SessionManager.KEY_USER_ID);
 
         // email
         //String email = user.get(SessionManager.KEY_EMAIL);
 
         // displaying user data
-        lblName.setText(Html.fromHtml("Name: <b>" + name + "</b>"));
+        lblName.setText(Html.fromHtml("Name: <b>" + userId + "</b>"));
         //lblEmail.setText(Html.fromHtml("Email: <b>" + email + "</b>"));
 
 
