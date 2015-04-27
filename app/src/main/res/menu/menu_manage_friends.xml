@@ -2,6 +2,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.appofy.android.pixshare.ManageFriendsActivity">
+    <item
+        android:id="@+id/add_friend"
+        android:icon="@drawable/ic_action_new"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="10"
+        android:title="add_friend" />
+    <item
+        android:id="@+id/delete_friend"
+        android:icon="@drawable/ic_action_discard"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="10"
+        android:title="delete_friend" />
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>
