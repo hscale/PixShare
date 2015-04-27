@@ -19,4 +19,17 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_launch">LaunchActivity</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_landing">LandingActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_album_grid">AlbumGridActivity</string>
+    <string name="title_activity_shared_album_grid_view">SharedAlbumGridView</string>
+
+    <string name="title_activity_album_fullscreen">AlbumFullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_add_new_album">AddNewAlbumActivity</string>
+    <string name="title_activity_manage_friends">ManageFriendsActivity</string>
+    <string name="title_activity_manage_groups">ManageGroupsActivity</string>
 </resources>

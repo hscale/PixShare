@@ -3,6 +3,8 @@
     package="com.appofy.android.pixshare" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission." />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login">
+            android:label="@string/title_activity_login" >
         </activity>
         <activity
             android:name="com.facebook.FacebookActivity"
@@ -28,13 +30,40 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main" >
         </activity>
         <activity
             android:name=".LaunchActivity"
             android:label="@string/app_name"
-            android:noHistory="true"
-            >
+            android:noHistory="true" >
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name=".LandingActivity"
+            android:label="@string/title_activity_landing"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".AlbumGridActivity"
+            android:label="@string/title_activity_album_grid" >
+        </activity>
+        <activity
+            android:name=".SharedAlbumGridView"
+            android:label="@string/title_activity_shared_album_grid_view" >
+        </activity>
+        <activity
+            android:name=".AlbumFullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_album_fullscreen"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name=".AddNewAlbumActivity"
+            android:label="@string/title_activity_add_new_album" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,8 +71,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:name=".ManageFriendsGroupsActivity"
+            android:label="@string/title_activity_manage_friends_groups" >
+        </activity>
+        <activity
+            android:name=".ManageFriendsActivity"
+            android:label="@string/title_activity_manage_friends" >
+        </activity>
+        <activity
+            android:name=".ManageGroupsActivity"
+            android:label="@string/title_activity_manage_groups" >
         </activity>
     </application>
 
