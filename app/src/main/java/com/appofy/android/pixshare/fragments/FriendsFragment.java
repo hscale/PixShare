@@ -1,36 +1,47 @@
-package com.appofy.android.pixshare;
+package com.appofy.android.pixshare.fragments;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
+import android.view.MenuInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.R;
 
-public class ManageGroupsActivity extends ActionBarActivity {
-
+public class FriendsFragment extends Fragment {
     ListView lv;
     EditText inputSearch;
     ArrayAdapter<String> adapter;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_groups);
-        lv =(ListView)findViewById(R.id.group_list_view);
+        setHasOptionsMenu(true);
+    }
 
-        inputSearch = (EditText)findViewById(R.id.inputGroupSearch);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        String[] values = new String[] { "Group 1", "Group 2", "Group 3" };
-        adapter = new ArrayAdapter<String>(this,
+        View rootView = inflater.inflate(R.layout.fragment_friends, container,false);
 
-                R.layout.group_list_item,R.id.group_name, values);
+        lv =(ListView)rootView.findViewById(R.id.friend_list_view);
+
+        inputSearch = (EditText)rootView.findViewById(R.id.inputFriendSearch);
+
+        String[] values = new String[] { "Friend 1", "Friend 2", "Friend 3" };
+
+        adapter = new ArrayAdapter<String>(getActivity(),
+
+                R.layout.friend_list_item,R.id.friend_name, values);
 
         lv.setAdapter(adapter);
 
@@ -66,31 +77,16 @@ public class ManageGroupsActivity extends ActionBarActivity {
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3) {
                 String value = (String) adapter.getItemAtPosition(position);
-                Toast.makeText(getBaseContext(), value, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getBaseContext(), value, Toast.LENGTH_LONG).show();
             }
         });
-    }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_manage_groups, menu);
-        return true;
+        return rootView;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_manage_friends, menu);
     }
 }

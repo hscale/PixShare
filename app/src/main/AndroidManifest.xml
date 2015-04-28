@@ -46,6 +46,7 @@
             android:label="@string/title_activity_landing"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateHidden" >
+
         </activity>
         <activity
             android:name=".AlbumGridActivity"
@@ -64,23 +65,17 @@
         <activity
             android:name=".AddNewAlbumActivity"
             android:label="@string/title_activity_add_new_album" >
+        </activity>
+        <activity
+            android:name=".AddFriendActivity"
+            android:label="@string/title_activity_add_friend"
+            android:uiOptions="splitActionBarWhenNarrow"
+            android:windowSoftInputMode="stateHidden"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".ManageFriendsGroupsActivity"
-            android:label="@string/title_activity_manage_friends_groups" >
-        </activity>
-        <activity
-            android:name=".ManageFriendsActivity"
-            android:label="@string/title_activity_manage_friends" >
-        </activity>
-        <activity
-            android:name=".ManageGroupsActivity"
-            android:label="@string/title_activity_manage_groups" >
         </activity>
     </application>
 

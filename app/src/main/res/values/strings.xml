@@ -32,4 +32,5 @@
     <string name="title_activity_add_new_album">AddNewAlbumActivity</string>
     <string name="title_activity_manage_friends">ManageFriendsActivity</string>
     <string name="title_activity_manage_groups">ManageGroupsActivity</string>
+    <string name="title_activity_add_friend">AddFriendActivity</string>
 </resources>

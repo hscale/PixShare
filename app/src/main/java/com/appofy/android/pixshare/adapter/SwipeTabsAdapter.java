@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.appofy.android.pixshare.fragments.AlbumsFragment;
+import com.appofy.android.pixshare.fragments.FriendsFragment;
+import com.appofy.android.pixshare.fragments.GroupsFragment;
 import com.appofy.android.pixshare.fragments.SharedAlbumsFragment;
 import com.appofy.android.pixshare.fragments.ProfileFragment;
 /**
@@ -12,33 +14,33 @@ import com.appofy.android.pixshare.fragments.ProfileFragment;
  */
 public class SwipeTabsAdapter extends FragmentPagerAdapter{
 
-    private final int TAB_COUNT = 3;
-
+    private final int TAB_COUNT = 4;
+    private String tabtitles[] = new String[] { "My Albums", "Shared Albums","Friends","Groups"};
     public SwipeTabsAdapter(FragmentManager fm) {
         super(fm);
     }
+    @Override
+    public int getCount() {
+        return TAB_COUNT;
+    }
 
     @Override
-    public Fragment getItem(int index) {
-
-        switch (index) {
+    public Fragment getItem(int position) {
+        switch (position) {
             case 0:
-                // Top Rated fragment activity
                 return new AlbumsFragment();
             case 1:
-                // Games fragment activity
                 return new SharedAlbumsFragment();
             case 2:
-                // Games fragment activity
-                return new ProfileFragment();
+                return new FriendsFragment();
+            case 3:
+                return new GroupsFragment();
         }
-
         return null;
     }
 
     @Override
-    public int getCount() {
-        // get item count - equal to number of tabs
-        return TAB_COUNT;
+    public CharSequence getPageTitle(int position) {
+        return tabtitles[position];
     }
 }
