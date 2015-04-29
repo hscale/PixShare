@@ -17,6 +17,7 @@ public class AlbumGridActivity extends Activity {
 
     private AlbumGridViewHelper mAlbumGridViewHelper;
     private ArrayList<String> mImagePaths = new ArrayList<String>();
+    private ArrayList<Integer> mPhotoIds = new ArrayList<Integer>();
     private AlbumGridViewAdapter mAdapter;
     private GridView mGridView;
     private int mColumnWidth;
@@ -35,9 +36,11 @@ public class AlbumGridActivity extends Activity {
 
         // loading all image paths from SD card
         mImagePaths = mAlbumGridViewHelper.getFilePaths();
-
+        mPhotoIds = mAlbumGridViewHelper.getPhotoIds();
+        System.out.println(mImagePaths);
+        System.out.println(mPhotoIds);
         // Gridview mAdapter
-        mAdapter = new AlbumGridViewAdapter(AlbumGridActivity.this, mImagePaths,
+        mAdapter = new AlbumGridViewAdapter(AlbumGridActivity.this, mImagePaths, mPhotoIds,
                 mColumnWidth);
 
         // setting grid view mAdapter

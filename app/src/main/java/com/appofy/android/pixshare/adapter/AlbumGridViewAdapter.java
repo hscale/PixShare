@@ -26,12 +26,14 @@ public class AlbumGridViewAdapter extends BaseAdapter {
 
     private Activity mActivity;
     private ArrayList<String> mFilePaths = new ArrayList<String>();
+    private ArrayList<Integer> mPhotoIds = new ArrayList<Integer>();
     private int mImageWidth;
 
-    public AlbumGridViewAdapter(Activity activity, ArrayList<String> filePaths,
+    public AlbumGridViewAdapter(Activity activity, ArrayList<String> filePaths, ArrayList<Integer> photoIds,
                                 int mImageWidth) {
         this.mActivity = activity;
         this.mFilePaths = filePaths;
+        this.mPhotoIds = photoIds;
         this.mImageWidth = mImageWidth;
     }
 

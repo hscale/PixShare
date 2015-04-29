@@ -36,6 +36,7 @@
             android:name=".LaunchActivity"
             android:label="@string/app_name"
             android:noHistory="true" >
+
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -51,6 +52,10 @@
         <activity
             android:name=".AlbumGridActivity"
             android:label="@string/title_activity_album_grid" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".SharedAlbumGridView"
@@ -72,10 +77,7 @@
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateHidden"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 
