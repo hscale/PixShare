@@ -146,7 +146,7 @@ public class LoginActivity extends FragmentActivity {
                                         session.createLoginSession(jobj.getString("userId"), password, socialMediaFlag,socialMediaId);
                                         System.out.println("*********** "+session.getUserDetails().get("userId"));
                                         // Staring LandingActivity
-                                        Intent i = new Intent(getApplicationContext(), ManageGroupsActivity.class);
+                                        Intent i = new Intent(getApplicationContext(), LandingActivity.class);
                                         // Closing all the Activities
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         // Add new Flag to start new Activity

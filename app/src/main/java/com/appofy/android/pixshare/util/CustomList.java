@@ -34,7 +34,7 @@ public class CustomList extends ArrayAdapter<String> {
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.friend_list_item, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.txt);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.friend_name);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
         txtTitle.setText(web.get(position));
         imageView.setImageBitmap(imageId.get(position));

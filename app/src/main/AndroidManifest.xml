@@ -36,7 +36,10 @@
             android:name=".LaunchActivity"
             android:label="@string/app_name"
             android:noHistory="true" >
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".RegisterActivity"
@@ -52,10 +55,6 @@
         <activity
             android:name=".AlbumGridActivity"
             android:label="@string/title_activity_album_grid" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".SharedAlbumGridView"
@@ -77,7 +76,22 @@
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateHidden"
             >
-
+        </activity>
+		<activity
+            android:name=".ManageFriendsGroupsActivity"
+            android:label="ManageFriendGroupActivity" >
+        </activity>
+        <activity
+            android:name=".ManageFriendsActivity"
+            android:label="@string/title_activity_manage_friends" >
+        </activity>
+        <activity
+            android:name=".ManageGroupsActivity"
+            android:label="@string/title_activity_manage_groups" >
+        </activity>
+        <activity
+            android:name=".FriendProfileActivity"
+            android:label="FriendProfileActivity" >
         </activity>
     </application>
 
