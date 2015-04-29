@@ -4,7 +4,7 @@
     android:orientation="vertical" >
 
     <!-- Editext for Search -->
-    <EditText android:id="@+id/inputFriendGroupSearch"
+    <EditText android:id="@+id/inputGroupSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Search Groups.."
@@ -12,7 +12,7 @@
 
     <!-- List View -->
     <ListView
-        android:id="@+id/group_friend_list_view"
+        android:id="@+id/group_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 

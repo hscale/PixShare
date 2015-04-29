@@ -55,7 +55,7 @@ public class LoginActivity extends FragmentActivity {
     private JSONObject fbFieldsInJsonObj = new JSONObject();
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/";
+    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
@@ -105,6 +105,7 @@ public class LoginActivity extends FragmentActivity {
             //by default socialMediaFlag is false, it can be set if user log in using social media
             String socialMediaFlag = "F";
 
+
             @Override
             public void onClick(View arg0) {
 
@@ -125,11 +126,12 @@ public class LoginActivity extends FragmentActivity {
                     RequestParams chkParams = new RequestParams();
                     chkParams.put("userName", username);
                     chkParams.put("password", password);
-                    client.get(initialURL + "authenticate/email", chkParams, new AsyncHttpResponseHandler() {
+                    client.get(initialURL + "email/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                             try {
+                                String socialMediaId = null;
                                 JSONObject jobj = new JSONObject(new String(response));
                                 if (jobj.getString("responseFlag").equals("success")) {
                                     if (jobj.getString("authenticated").equals("true")) {
@@ -139,10 +141,12 @@ public class LoginActivity extends FragmentActivity {
                                             socialMediaFlag = "F";
                                         } else if (jobj.getString("socialMediaFlag").equals("1")) {
                                             socialMediaFlag = "T";
+                                            socialMediaId = jobj.getString("socialMediaId");
                                         }
-                                        session.createLoginSession(jobj.getString("userId"), password, socialMediaFlag,jobj.getString("socialMediaId"));
-                                        // Staring MainActivity
-                                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                        session.createLoginSession(jobj.getString("userId"), password, socialMediaFlag,socialMediaId);
+                                        System.out.println("*********** "+session.getUserDetails().get("userId"));
+                                        // Staring LandingActivity
+                                        Intent i = new Intent(getApplicationContext(), ManageGroupsActivity.class);
                                         // Closing all the Activities
                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         // Add new Flag to start new Activity
@@ -296,6 +300,7 @@ public class LoginActivity extends FragmentActivity {
     private void updateUI() {
         boolean enableButtons = AccessToken.getCurrentAccessToken() != null;
         final Profile profile = Profile.getCurrentProfile();
+
         if (enableButtons && profile != null) {
             //check if id is already recorded in DB, if not then record the entry
             // Make RESTful webservice call using AsyncHttpClient object
@@ -303,12 +308,13 @@ public class LoginActivity extends FragmentActivity {
             RequestParams chkParams = new RequestParams();
             chkParams.put("socialUserId", profile.getId());
             chkParams.put("token", AccessToken.getCurrentAccessToken().getToken());
-            client.get(initialURL + "checkSocialUserIdPresent", chkParams, new AsyncHttpResponseHandler() {
+            client.get(initialURL + "social/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {
                         final String socialMediaFlag = "T";
+
                         JSONObject jobj = new JSONObject(new String(response));
                         if (jobj.getString("responseFlag").equals("success")) {
                             if (jobj.getString("present").equals("Y")) {
@@ -322,21 +328,23 @@ public class LoginActivity extends FragmentActivity {
                                 RequestParams chkParams = new RequestParams();
                                 chkParams.put("socialUserId", profile.getId());
                                 chkParams.put("accessToken", AccessToken.getCurrentAccessToken().getToken());
-                                client.put(initialURL + "accesstoken/social", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(initialURL + "social/accesstoken", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try{
+                                            String socialMediaId = null;
                                             JSONObject jobj = new JSONObject(new String(response));
                                             if (jobj.getString("responseFlag").equals("success")) {
                                                 Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_LONG).show();
                                                 String socialFlag="F";
                                                 if(jobj.getString("socialMediaFlag").equals("1")){
                                                     socialFlag = "T";
+                                                    socialMediaId =  jobj.getString("socialMediaId");
                                                 }
-                                                session.createLoginSession(jobj.getString("userId"), jobj.getString("token"),socialFlag, jobj.getString("socialMediaId"));
+                                                session.createLoginSession(jobj.getString("userId"), jobj.getString("token"),socialFlag,socialMediaId);
                                                 //session.createLoginSession(jobj.getString("user_id"), password, socialMediaFlag,jobj.getString("socialMediaId"));
                                                 // Staring MainActivity
-                                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                                Intent i = new Intent(getApplicationContext(), LandingActivity.class);
                                                 // Closing all the Activities
                                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 // Add new Flag to start new Activity
@@ -389,10 +397,11 @@ public class LoginActivity extends FragmentActivity {
                                         params.put("password", AccessToken.getCurrentAccessToken().getToken());
                                         params.put("sourceName","facebook");*/
                                 AsyncHttpClient client = new AsyncHttpClient();
-                                client.post(getApplicationContext(), initialURL + "register/social", params, new AsyncHttpResponseHandler() {
+                                client.post(getApplicationContext(), initialURL + "social", params, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
+                                            String socialMediaId = null;
                                             JSONObject jobj = new JSONObject(new String(response));
                                             if (jobj.getString("responseFlag").equals("success")) {
                                                 Toast.makeText(getApplicationContext(), "You have been registered successfully!", Toast.LENGTH_LONG).show();
@@ -400,10 +409,11 @@ public class LoginActivity extends FragmentActivity {
                                                 String socialFlag="F";
                                                 if(jobj.getString("socialMediaFlag").equals("1")){
                                                     socialFlag = "T";
+                                                    socialMediaId = jobj.getString("socialMediaId");
                                                 }
-                                                session.createLoginSession(jobj.getString("userId"), AccessToken.getCurrentAccessToken().getToken(),socialFlag, jobj.getString("socialMediaId"));
+                                                session.createLoginSession(jobj.getString("userId"), AccessToken.getCurrentAccessToken().getToken(),socialFlag,socialMediaId);
                                                 // Staring LoginActivity
-                                                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                                                Intent i = new Intent(getApplicationContext(), LandingActivity.class);
                                                 // Closing all the Activities
                                                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 // Add new Flag to start new Activity

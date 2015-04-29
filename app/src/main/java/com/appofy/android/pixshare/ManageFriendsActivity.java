@@ -31,13 +31,14 @@ import com.loopj.android.http.SyncHttpClient;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 
 
-public class ManageFriendsGroupsActivity extends ActionBarActivity {
+public class ManageFriendsActivity extends ActionBarActivity {
 
     ListView lv;
     EditText inputSearch;
@@ -46,10 +47,9 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
     ArrayList<String> friendIds;
     ArrayList<Bitmap> friendImages;
     protected Bitmap image;
-    String groupId;
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/";
+    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;
@@ -57,18 +57,13 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manage_friends_groups);
+        setContentView(R.layout.activity_manage_friends);
+        lv =(ListView)findViewById(R.id.friend_list_view);
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            groupId = extras.getString("groupId");
-        }
-
-        lv =(ListView)findViewById(R.id.group_friend_list_view);
-
-        inputSearch = (EditText)findViewById(R.id.inputFriendGroupSearch);
+        inputSearch = (EditText)findViewById(R.id.inputFriendSearch);
 
         new FriendTask().execute();
+
     }
 
     private class FriendTask extends AsyncTask<String, Void, Bitmap> {
@@ -79,9 +74,9 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
             SyncHttpClient client = new SyncHttpClient();
             RequestParams chkParams = new RequestParams();
             session = new SessionManager(getApplicationContext());
-            chkParams.put("groupId", groupId);
+            chkParams.put("userId", session.getUserDetails().get("userId"));
 
-            client.get(initialURL + "group/members", chkParams, new AsyncHttpResponseHandler() {
+            client.get(initialURL + "friend", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {
@@ -90,11 +85,13 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
                         friendImages = new ArrayList<Bitmap>();
                         JSONObject jobj = new JSONObject(new String(response));
                         if (jobj.getString("responseFlag").equals("success")) {
-                            JSONArray jsonArray = new JSONArray(jobj.getString("userGroupMembers"));
+                            JSONArray jsonArray = new JSONArray(jobj.getString("friendList"));
                             JSONArray jsonArray1;
                             for(int i=0;i<jsonArray.length();i++){
-                                jsonArray1 = new JSONArray(jsonArray.getString(i));
-                                friendIds.add(String.valueOf(jsonArray1.get(1)));
+                                jobj = new JSONObject(jsonArray.getString(i));
+                                jsonArray1 = new JSONArray(jobj.getString("friendDetails"));
+
+                                friendIds.add(String.valueOf(jsonArray1.get(0)));
                                 friendNames.add(String.valueOf(jsonArray1.get(2)));
                                 try {
                                     String picURL;
@@ -146,7 +143,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
         protected void onPostExecute(Bitmap image) {
             super.onPostExecute(image);
 
-            adapter = new CustomList(ManageFriendsGroupsActivity.this, friendNames, friendImages);
+            adapter = new CustomList(ManageFriendsActivity.this, friendNames, friendImages);
             lv.setAdapter(adapter);
             /**
              * Enabling onCLickListener Filter
@@ -157,7 +154,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
                                         long arg3) {
                     String value = (String) adapter.getItemAtPosition(position);
                     Toast.makeText(getBaseContext(), value, Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(ManageFriendsGroupsActivity.this, FriendProfileActivity.class);
+                    Intent i = new Intent(ManageFriendsActivity.this, FriendProfileActivity.class);
                     i.putExtra("friendId", friendIds.get(position));
                     startActivity(i);
                 }
@@ -216,11 +213,10 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
 
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_manage_friends_groups, menu);
+        getMenuInflater().inflate(R.menu.menu_manage_friends, menu);
         return true;
     }
 

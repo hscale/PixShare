@@ -32,7 +32,7 @@ public class RegisterActivity extends ActionBarActivity {
     SessionManager session;
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/";
+    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class RegisterActivity extends ActionBarActivity {
                         //check if userName is available
                         RequestParams chkParams = new RequestParams();
                         chkParams.put("userName", userName);
-                        client.get(initialURL+"checkAvailableUserName",chkParams,new AsyncHttpResponseHandler(){
+                        client.get(initialURL+"email/availability",chkParams,new AsyncHttpResponseHandler(){
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] response){
@@ -88,7 +88,7 @@ public class RegisterActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Username available, now registering...", Toast.LENGTH_LONG).show();
                                         // register user if userName is available
                                         //code to register to backend start
-                                        String apiURL = initialURL + "register/email";
+                                        String apiURL = initialURL + "email";
                                         RequestParams params = new RequestParams();
                                         params.put("firstName", firstName);
                                         params.put("lastName", lastName);
