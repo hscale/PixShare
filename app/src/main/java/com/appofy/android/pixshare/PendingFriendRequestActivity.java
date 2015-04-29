@@ -1,4 +1,4 @@
-package com.appofy.android.pixshare.fragments;
+package com.appofy.android.pixshare;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,29 +9,22 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.appofy.android.pixshare.AddFriendActivity;
-import com.appofy.android.pixshare.FriendProfileActivity;
-import com.appofy.android.pixshare.InviteFriendsActivity;
-import com.appofy.android.pixshare.PendingFriendRequestActivity;
-import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.CustomList;
+import com.appofy.android.pixshare.util.CustomListFriendRequest;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -44,9 +37,10 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class FriendsFragment extends Fragment {
+
+public class PendingFriendRequestActivity extends ActionBarActivity {
+
     ListView lv;
-    EditText inputSearch;
     ArrayAdapter<String> adapter;
     ArrayList<String> friendNames;
     ArrayList<String> friendIds;
@@ -57,21 +51,12 @@ public class FriendsFragment extends Fragment {
     SessionManager session;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View rootView = inflater.inflate(R.layout.fragment_friends, container,false);
-        lv =(ListView)rootView.findViewById(R.id.friend_list_view);
-        inputSearch = (EditText)rootView.findViewById(R.id.inputFriendSearch);
+        setContentView(R.layout.activity_pending_friend_request);
+        lv =(ListView) findViewById(R.id.friend_request_list_view);
 
         new FriendTask().execute();
-
-        return rootView;
     }
 
     private class FriendTask extends AsyncTask<String, Void, Bitmap> {
@@ -81,10 +66,10 @@ public class FriendsFragment extends Fragment {
 
             SyncHttpClient client = new SyncHttpClient();
             RequestParams chkParams = new RequestParams();
-            session = new SessionManager(getActivity().getApplicationContext());
+            session = new SessionManager(getApplicationContext());
             chkParams.put("userId", session.getUserDetails().get("userId"));
 
-            client.get(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "user/friend/request", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {
@@ -96,15 +81,13 @@ public class FriendsFragment extends Fragment {
                             JSONArray jsonArray = new JSONArray(jobj.getString("friendList"));
                             JSONArray jsonArray1;
                             for(int i=0;i<jsonArray.length();i++){
-                                jobj = new JSONObject(jsonArray.getString(i));
-                                jsonArray1 = new JSONArray(jobj.getString("friendDetails"));
-
+                                jsonArray1 = new JSONArray(jsonArray.getString(i));
                                 friendIds.add(String.valueOf(jsonArray1.get(0)));
-                                friendNames.add(String.valueOf(jsonArray1.get(2)));
+                                friendNames.add(String.valueOf(jsonArray1.get(1)));
                                 try {
                                     String picURL;
-                                    if(!jsonArray1.get(3).equals(null)){
-                                        picURL = jsonArray1.getString(3);
+                                    if(!jsonArray1.get(2).equals(null)){
+                                        picURL = jsonArray1.getString(2);
                                     }else{
                                         picURL = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSpG4D-f7xIFSeApGIWTeSR-Bep7DzTZrGVUGhT0dTS5svo7mpe8g";
                                     }
@@ -119,10 +102,10 @@ public class FriendsFragment extends Fragment {
                                 friendImages.add(image);
                             }
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception e) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }
@@ -131,15 +114,15 @@ public class FriendsFragment extends Fragment {
                 public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                     // When Http response code is '404'
                     if (statusCode == 404) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
                     }
                     // When Http response code is '500'
                     else if (statusCode == 500) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
                     }
                     // When Http response code other than 404, 500
                     else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -151,7 +134,7 @@ public class FriendsFragment extends Fragment {
         protected void onPostExecute(Bitmap image) {
             super.onPostExecute(image);
 
-            adapter = new CustomList(getActivity(), friendNames, friendImages);
+            adapter = new CustomListFriendRequest(PendingFriendRequestActivity.this, friendNames, friendImages);
             lv.setAdapter(adapter);
             /**
              * Enabling onCLickListener Filter
@@ -162,33 +145,10 @@ public class FriendsFragment extends Fragment {
                                         long arg3) {
                     String value = (String) adapter.getItemAtPosition(position);
                     //Toast.makeText(getBaseContext(), value, Toast.LENGTH_LONG).show();
-                    Intent i = new Intent(getActivity(), FriendProfileActivity.class);
+                    Intent i = new Intent(PendingFriendRequestActivity.this, FriendProfileActivity.class);
                     i.putExtra("friendId", friendIds.get(position));
+                    i.putExtra("friendRequestFlag","T");
                     startActivity(i);
-                }
-            });
-
-            /**
-             * Enabling Search Filter
-             * */
-            inputSearch.addTextChangedListener(new TextWatcher() {
-
-                @Override
-                public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                    // When user changed the Text
-                    adapter.getFilter().filter(cs);
-                }
-
-                @Override
-                public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                              int arg3) {
-                    // TODO Auto-generated method stub
-
-                }
-
-                @Override
-                public void afterTextChanged(Editable arg0) {
-                    // TODO Auto-generated method stub
                 }
             });
         }
@@ -222,28 +182,24 @@ public class FriendsFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(
-            Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_manage_friends, menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_pending_friend_request, menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_friend:
-                Intent addFriendIntent = new Intent(getActivity().getApplicationContext(), AddFriendActivity.class);
-                startActivity(addFriendIntent);
-                return true;
-            case R.id.invite_friends:
-                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
-                startActivity(inviteFriendsIntent);
-                return true;
-            case R.id.friend_request:
-                Intent pendingFriendRequestIntent = new Intent(getActivity().getApplicationContext(), PendingFriendRequestActivity.class);
-                startActivity(pendingFriendRequestIntent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
         }
+
+        return super.onOptionsItemSelected(item);
     }
 }

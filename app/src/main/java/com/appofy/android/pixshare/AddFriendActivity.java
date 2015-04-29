@@ -65,6 +65,7 @@ public class AddFriendActivity extends ActionBarActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                             try {
+                                friendIds = new ArrayList<String>();
                                 friendNames = new ArrayList<String>();
                                 JSONObject jobj = new JSONObject(new String(response));
                                 if (jobj.getString("responseFlag").equals("success")) {
@@ -75,10 +76,12 @@ public class AddFriendActivity extends ActionBarActivity {
                                             jsonArray1 = new JSONArray(jsonArray.getString(i));
                                             System.out.println("jsonArray1::::::::::: "+jsonArray1);
                                             friendIds.add(jsonArray1.getString(0));
-                                            friendNames.add(String.valueOf(jsonArray1.get(2))+String.valueOf(jsonArray1.get(3)));
+                                            friendNames.add(String.valueOf(jsonArray1.get(2))+" "+String.valueOf(jsonArray1.get(3)));
                                         }
 
-                                        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.activity_add_friend, friendNames);
+                                        //adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, friendNames);
+                                        adapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.add_friend_list_layout, R.id.listTextView, friendNames);
+
                                         lv.setAdapter(adapter);
                                         /**
                                          * Enabling onCLickListener Filter

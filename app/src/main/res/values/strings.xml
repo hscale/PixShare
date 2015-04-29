@@ -37,4 +37,5 @@
     <string name="title_activity_add_group">AddGroupActivity</string>
     <string name="title_activity_my_profile">MyProfileActivity</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="title_activity_pending_friend_request">PendingFriendRequestActivity</string>
 </resources>

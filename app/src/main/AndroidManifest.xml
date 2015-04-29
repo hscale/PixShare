@@ -80,7 +80,6 @@
             android:name=".ManageFriendsGroupsActivity"
             android:label="ManageFriendGroupActivity" >
         </activity>
-
         <activity
             android:name=".FriendProfileActivity"
             android:label="FriendProfileActivity" >
@@ -100,6 +99,10 @@
         <activity
             android:name=".EditProfileActivity"
             android:label="@string/title_activity_edit_profile" >
+        </activity>
+        <activity
+            android:name=".PendingFriendRequestActivity"
+            android:label="@string/title_activity_pending_friend_request" >
         </activity>
     </application>
 
