@@ -1,40 +1,24 @@
 package com.appofy.android.pixshare;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import com.appofy.android.pixshare.adapter.SwipeTabsAdapter;
 
 
-public class AddFriendActivity extends ActionBarActivity {
-    Button mSearchBtn;
-    EditText mUsernameEText;
+public class InviteFriendsActivity extends ActionBarActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_friend);
-        mUsernameEText = (EditText) findViewById(R.id.inputFriendSearchByUsername);
-        mSearchBtn = (Button) findViewById(R.id.inputFriendSearchBtn);
-        mSearchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getBaseContext(),mUsernameEText.getText(),Toast.LENGTH_LONG).show();
-            }
-        });
+        setContentView(R.layout.activity_invite_friends);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_add_friend, menu);
+        getMenuInflater().inflate(R.menu.menu_invite_friends, menu);
         return true;
     }
 
@@ -44,6 +28,7 @@ public class AddFriendActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;

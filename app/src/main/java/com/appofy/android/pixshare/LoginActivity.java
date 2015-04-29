@@ -3,6 +3,8 @@ package com.appofy.android.pixshare;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -34,7 +36,7 @@ import org.json.JSONObject;
 
 import java.util.Iterator;
 
-public class LoginActivity extends FragmentActivity {
+public class LoginActivity extends ActionBarActivity {
 
     // Email, password edittext
     EditText txtUsername, txtPassword;
@@ -55,7 +57,7 @@ public class LoginActivity extends FragmentActivity {
     private JSONObject fbFieldsInJsonObj = new JSONObject();
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
+    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
@@ -314,7 +316,7 @@ public class LoginActivity extends FragmentActivity {
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {
                         final String socialMediaFlag = "T";
-
+                        System.out.println("In UpdateUI success social/authenticate");
                         JSONObject jobj = new JSONObject(new String(response));
                         if (jobj.getString("responseFlag").equals("success")) {
                             if (jobj.getString("present").equals("Y")) {

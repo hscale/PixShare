@@ -7,23 +7,29 @@
     tools:context="com.appofy.android.pixshare.AddFriendActivity">
 
     <!-- Editext for Search -->
-    <EditText android:id="@+id/inputFriendSearchByUsername"
+    <EditText android:id="@+id/inputFriendSendEmail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search Friend By Username.."
+        android:hint="Search Friend By Email.."
         android:inputType="textVisiblePassword"
+        android:layout_marginTop="89dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
-    <Button android:id="@+id/inputFriendSearchBtn"
+    <Button android:id="@+id/inputFriendSendEmailBtn"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Search"
-        android:layout_alignBottom="@+id/inputFriendSearchByUsername"
-        android:layout_alignParentEnd="true" />
+        android:text="Send Invite"
+        android:layout_below="@+id/inputFriendSendEmail"
+        android:layout_centerHorizontal="true" />
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/inputFriendSearchByUsername"/>
+    <Button android:id="@+id/inputFriendFBInviteBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Invite FB Friends"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

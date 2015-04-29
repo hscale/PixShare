@@ -34,7 +34,7 @@ import java.io.InputStream;
 public class ProfileFragment extends Fragment {
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
+    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;

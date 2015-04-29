@@ -16,6 +16,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -24,7 +25,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.AddFriendActivity;
 import com.appofy.android.pixshare.FriendProfileActivity;
+import com.appofy.android.pixshare.InviteFriendsActivity;
 import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.CustomList;
 import com.appofy.android.pixshare.util.SessionManager;
@@ -49,7 +52,7 @@ public class FriendsFragment extends Fragment {
     protected Bitmap image;
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
+    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;
@@ -223,5 +226,21 @@ public class FriendsFragment extends Fragment {
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_manage_friends, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_friend:
+                Intent addFriendIntent = new Intent(getActivity().getApplicationContext(), AddFriendActivity.class);
+                startActivity(addFriendIntent);
+                return true;
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

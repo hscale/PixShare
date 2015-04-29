@@ -38,6 +38,7 @@
             android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -50,7 +51,6 @@
             android:label="@string/title_activity_landing"
             android:uiOptions="splitActionBarWhenNarrow"
             android:windowSoftInputMode="stateHidden" >
-
         </activity>
         <activity
             android:name=".AlbumGridActivity"
@@ -74,10 +74,9 @@
             android:name=".AddFriendActivity"
             android:label="@string/title_activity_add_friend"
             android:uiOptions="splitActionBarWhenNarrow"
-            android:windowSoftInputMode="stateHidden"
-            >
+            android:windowSoftInputMode="stateHidden" >
         </activity>
-		<activity
+        <activity
             android:name=".ManageFriendsGroupsActivity"
             android:label="ManageFriendGroupActivity" >
         </activity>
@@ -92,6 +91,10 @@
         <activity
             android:name=".FriendProfileActivity"
             android:label="FriendProfileActivity" >
+        </activity>
+        <activity
+            android:name=".InviteFriendsActivity"
+            android:label="@string/title_activity_invite_friends" >
         </activity>
     </application>
 

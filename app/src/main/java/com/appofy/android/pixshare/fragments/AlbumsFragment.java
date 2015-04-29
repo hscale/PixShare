@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.appofy.android.pixshare.R;
+import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -43,7 +44,7 @@ public class AlbumsFragment extends Fragment {
     String[] albumNames;
     int[] albumIds;
     int userId;
-
+    SessionManager session;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,14 +58,14 @@ public class AlbumsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_albums, container,false);
 
         lv =(ListView)rootView.findViewById(R.id.album_list_view);
-
+        session = new SessionManager(getActivity());
         inputSearch = (EditText)rootView.findViewById(R.id.inputAlbumSearch);
         desturl = url + sectionurl + suburl;
         //String[] values = new String[] { "Album 1", "Album 2", "Album 3" };
 
         // TODO: Need to fetch from session.
-        userId = 15;
-
+        userId = Integer.parseInt(session.getUserDetails().get("userId"));
+        System.out.println("In AlbumsFragment UserID:"+userId);
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
 

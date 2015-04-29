@@ -1,22 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.appofy.android.pixshare.AddFriendActivity">
+    tools:context="com.appofy.android.pixshare.InviteFriendsActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
     <item
-        android:id="@+id/invite_friends"
-        android:orderInCategory="1"
-        app:showAsAction="never"
-        android:title="Invite Friends"/>
-    <item
         android:id="@+id/my_profile"
-        android:orderInCategory="2"
+        android:orderInCategory="1"
         app:showAsAction="never"
         android:title="My Profile"/>
     <item
         android:id="@+id/signout"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         app:showAsAction="never"
         android:title="SignOut"/>
 </menu>

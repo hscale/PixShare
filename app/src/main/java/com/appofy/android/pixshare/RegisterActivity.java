@@ -32,7 +32,7 @@ public class RegisterActivity extends ActionBarActivity {
     SessionManager session;
 
     //API URL
-    public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest/pixshare/user/";
+    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,7 +106,7 @@ public class RegisterActivity extends ActionBarActivity {
                                                         Toast.makeText(getApplicationContext(), "You have been registered successfully!", Toast.LENGTH_LONG).show();
                                                         //session.createLoginSession("Android Hive", "anroidhive@gmail.com");
                                                         // Staring LoginActivity
-                                                        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                                                        Intent i = new Intent(getApplicationContext(), LandingActivity.class);
                                                         // Closing all the Activities
                                                         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                         // Add new Flag to start new Activity
