@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,9 +34,6 @@ import java.io.InputStream;
 public class FriendProfileActivity extends ActionBarActivity {
 
     String friendId, friendName;
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;
@@ -136,6 +134,11 @@ public class FriendProfileActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             friendId = extras.getString("friendId");
+            if(extras.containsKey("sendRequestFlag")){
+                if(extras.getString("sendRequestFlag").equals("T")){
+                    //TODO set one more menu item to send friend request
+                }
+            }
         }
 
         profilePic = (ImageView) findViewById(R.id.ivProfilePic);
@@ -153,7 +156,7 @@ public class FriendProfileActivity extends ActionBarActivity {
         session = new SessionManager(getApplicationContext());
         chkParams.put("friendId", friendId);
 
-        client.get(initialURL + "friend/detail", chkParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.initialURL + "user/friend/detail", chkParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {

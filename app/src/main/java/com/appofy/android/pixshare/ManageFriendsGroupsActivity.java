@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.CustomList;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -48,9 +49,6 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
     protected Bitmap image;
     String groupId;
 
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/";
-
     // Session Manager Class
     SessionManager session;
 
@@ -76,12 +74,12 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
         @Override
         protected Bitmap doInBackground(String... params) {
 
-            AsyncHttpClient client = new AsyncHttpClient();
+            SyncHttpClient client = new SyncHttpClient();
             RequestParams chkParams = new RequestParams();
             session = new SessionManager(getApplicationContext());
             chkParams.put("groupId", groupId);
 
-            client.get(initialURL + "group/members", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "group/members", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {

@@ -10,7 +10,7 @@
     <EditText android:id="@+id/inputFriendSendEmail"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Search Friend By Email.."
+        android:hint="Invite Friend By Email.."
         android:inputType="textVisiblePassword"
         android:layout_marginTop="89dp"
         android:layout_alignParentTop="true"

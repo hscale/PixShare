@@ -23,7 +23,7 @@
         android:layout_alignBottom="@+id/inputFriendSearchByUsername"
         android:layout_alignParentEnd="true" />
 
-    <ListView android:id="@android:id/list" android:layout_width="match_parent"
+    <ListView android:id="@+id/list" android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/inputFriendSearchByUsername"/>
 </RelativeLayout>

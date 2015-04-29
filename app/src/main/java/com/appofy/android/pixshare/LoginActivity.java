@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.view.View;
 
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.SessionManager;
 
 import com.facebook.AccessToken;
@@ -55,9 +56,6 @@ public class LoginActivity extends ActionBarActivity {
 
     private String jsonResponseString = null;
     private JSONObject fbFieldsInJsonObj = new JSONObject();
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     private FacebookCallback<LoginResult> callback = new FacebookCallback<LoginResult>() {
         @Override
@@ -128,7 +126,7 @@ public class LoginActivity extends ActionBarActivity {
                     RequestParams chkParams = new RequestParams();
                     chkParams.put("userName", username);
                     chkParams.put("password", password);
-                    client.get(initialURL + "email/authenticate", chkParams, new AsyncHttpResponseHandler() {
+                    client.get(Constants.initialURL + "user/email/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -255,8 +253,8 @@ public class LoginActivity extends ActionBarActivity {
                             JSONObject object,
                             GraphResponse response) {
                         // Application code
-                        jsonResponseString = response.getJSONObject().toString();
-                        System.out.println("Graph Response: " + jsonResponseString);
+                        //jsonResponseString = response.getJSONObject().toString();
+                        //System.out.println("Graph Response: " + jsonResponseString);
                         try {
                             fbFieldsInJsonObj.put("sourceName", "facebook");
                             fbFieldsInJsonObj.put("token", accessToken.getToken());
@@ -310,7 +308,7 @@ public class LoginActivity extends ActionBarActivity {
             RequestParams chkParams = new RequestParams();
             chkParams.put("socialUserId", profile.getId());
             chkParams.put("token", AccessToken.getCurrentAccessToken().getToken());
-            client.get(initialURL + "social/authenticate", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "user/social/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -330,7 +328,7 @@ public class LoginActivity extends ActionBarActivity {
                                 RequestParams chkParams = new RequestParams();
                                 chkParams.put("socialUserId", profile.getId());
                                 chkParams.put("accessToken", AccessToken.getCurrentAccessToken().getToken());
-                                client.put(initialURL + "social/accesstoken", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "user/social/accesstoken", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try{
@@ -400,7 +398,7 @@ public class LoginActivity extends ActionBarActivity {
                                         params.put("password", AccessToken.getCurrentAccessToken().getToken());
                                         params.put("sourceName","facebook");*/
                                 AsyncHttpClient client = new AsyncHttpClient();
-                                client.post(getApplicationContext(), initialURL + "social", params, new AsyncHttpResponseHandler() {
+                                client.post(getApplicationContext(), Constants.initialURL + "user/social", params, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {

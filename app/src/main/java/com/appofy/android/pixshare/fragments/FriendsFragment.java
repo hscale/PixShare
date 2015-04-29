@@ -29,6 +29,7 @@ import com.appofy.android.pixshare.AddFriendActivity;
 import com.appofy.android.pixshare.FriendProfileActivity;
 import com.appofy.android.pixshare.InviteFriendsActivity;
 import com.appofy.android.pixshare.R;
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.CustomList;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -50,9 +51,6 @@ public class FriendsFragment extends Fragment {
     ArrayList<String> friendIds;
     ArrayList<Bitmap> friendImages;
     protected Bitmap image;
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;
@@ -85,7 +83,7 @@ public class FriendsFragment extends Fragment {
             session = new SessionManager(getActivity().getApplicationContext());
             chkParams.put("userId", session.getUserDetails().get("userId"));
 
-            client.get(initialURL + "friend", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {

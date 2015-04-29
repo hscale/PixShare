@@ -23,6 +23,7 @@ import com.appofy.android.pixshare.InviteFriendsActivity;
 import com.appofy.android.pixshare.ManageFriendsGroupsActivity;
 import com.appofy.android.pixshare.MyProfileActivity;
 import com.appofy.android.pixshare.R;
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.CustomListGroups;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -43,9 +44,6 @@ public class GroupsFragment extends Fragment {
     ArrayList<String> groupIds;
     ArrayList<String> groupNames;
     ArrayList<String> groupOwnerIds;
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/";
 
     // Session Manager Class
     SessionManager session;
@@ -70,7 +68,7 @@ public class GroupsFragment extends Fragment {
         session = new SessionManager(getActivity().getApplicationContext());
         chkParams.put("userId", session.getUserDetails().get("userId"));
 
-        client.get(initialURL + "group", chkParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.initialURL + "group", chkParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
