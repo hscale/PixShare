@@ -285,7 +285,7 @@ public class LoginActivity extends FragmentActivity {
                         } catch (JSONException je) {
                             je.printStackTrace();
                         }
-                        System.out.println("now logging out...");
+                        //System.out.println("now logging out...");
                         updateUI();
                         //Below stmt can be used anywhere to logout from FB session
                         //LoginManager.getInstance().logOut();
@@ -337,10 +337,11 @@ public class LoginActivity extends FragmentActivity {
                                             if (jobj.getString("responseFlag").equals("success")) {
                                                 Toast.makeText(getApplicationContext(), "Welcome " + username, Toast.LENGTH_LONG).show();
                                                 String socialFlag="F";
-                                                if(jobj.getString("socialMediaFlag").equals("1")){
+                                                if(jobj.get("socialMediaFlag").equals(1)){
                                                     socialFlag = "T";
                                                     socialMediaId =  jobj.getString("socialMediaId");
                                                 }
+                                                System.out.println("$$$$$$$$$: socialFlag - "+socialFlag+"  $$$$$$$$$: socialMediaId - "+socialMediaId);
                                                 session.createLoginSession(jobj.getString("userId"), jobj.getString("token"),socialFlag,socialMediaId);
                                                 //session.createLoginSession(jobj.getString("user_id"), password, socialMediaFlag,jobj.getString("socialMediaId"));
                                                 // Staring MainActivity
@@ -407,9 +408,9 @@ public class LoginActivity extends FragmentActivity {
                                                 Toast.makeText(getApplicationContext(), "You have been registered successfully!", Toast.LENGTH_LONG).show();
                                                 //session.createLoginSession(profile.getName(), AccessToken.getCurrentAccessToken().getToken(), socialMediaFlag);
                                                 String socialFlag="F";
-                                                if(jobj.getString("socialMediaFlag").equals("1")){
+                                                if(jobj.get("socialMediaFlag").equals(1)){
                                                     socialFlag = "T";
-                                                    socialMediaId = jobj.getString("socialMediaId");
+                                                    socialMediaId =  jobj.getString("socialMediaId");
                                                 }
                                                 session.createLoginSession(jobj.getString("userId"), AccessToken.getCurrentAccessToken().getToken(),socialFlag,socialMediaId);
                                                 // Staring LoginActivity
