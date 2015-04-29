@@ -173,10 +173,6 @@ public class GroupsFragment extends Fragment {
                 Intent addGroupIntent = new Intent(getActivity().getApplicationContext(), AddGroupActivity.class);
                 startActivity(addGroupIntent);
                 return true;
-            case R.id.edit_group:
-                Intent manageGroupIntent = new Intent(getActivity().getApplicationContext(), ManageFriendsGroupsActivity.class);
-                startActivity(manageGroupIntent);
-                return true;
             case R.id.invite_friends:
                 Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
                 startActivity(inviteFriendsIntent);
