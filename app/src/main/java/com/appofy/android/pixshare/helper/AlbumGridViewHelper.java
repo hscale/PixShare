@@ -88,10 +88,9 @@ public class AlbumGridViewHelper {
             albumId = 5;
 
             // Make RESTful webservice call using AsyncHttpClient object
+            AsyncHttpClient client = new AsyncHttpClient();
 
-            SyncHttpClient client = new SyncHttpClient();
-
-            RequestParams chkParams = new RequestParams();
+                        RequestParams chkParams = new RequestParams();
             chkParams.put("albumId", albumId);
 
             client.get(desturl, chkParams, new AsyncHttpResponseHandler() {
