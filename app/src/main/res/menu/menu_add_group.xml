@@ -1,13 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.appofy.android.pixshare.fragments.FriendsFragment">
-    <item
-        android:id="@+id/add_friend"
-        android:icon="@drawable/ic_action_new"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="10"
-        android:title="add_friend" />
+    tools:context="com.appofy.android.pixshare.AddGroupActivity">
+    <item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />
     <item
         android:id="@+id/invite_friends"
         android:orderInCategory="1"

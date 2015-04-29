@@ -76,7 +76,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
         @Override
         protected Bitmap doInBackground(String... params) {
 
-            SyncHttpClient client = new SyncHttpClient();
+            AsyncHttpClient client = new AsyncHttpClient();
             RequestParams chkParams = new RequestParams();
             session = new SessionManager(getApplicationContext());
             chkParams.put("groupId", groupId);
@@ -226,16 +226,21 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case R.id.add_friends_to_group:
+                Intent addFriendIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
+                startActivity(addFriendIntent);
+                return true;
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

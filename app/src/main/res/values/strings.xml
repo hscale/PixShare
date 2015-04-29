@@ -34,4 +34,7 @@
     <string name="title_activity_manage_groups">ManageGroupsActivity</string>
     <string name="title_activity_add_friend">AddFriendActivity</string>
     <string name="title_activity_invite_friends">InviteFriendsActivity</string>
+    <string name="title_activity_add_group">AddGroupActivity</string>
+    <string name="title_activity_my_profile">MyProfileActivity</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
 </resources>

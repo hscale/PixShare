@@ -8,7 +8,6 @@ import com.appofy.android.pixshare.fragments.AlbumsFragment;
 import com.appofy.android.pixshare.fragments.FriendsFragment;
 import com.appofy.android.pixshare.fragments.GroupsFragment;
 import com.appofy.android.pixshare.fragments.SharedAlbumsFragment;
-import com.appofy.android.pixshare.fragments.ProfileFragment;
 /**
  * Created by Mihir on 4/22/2015.
  */

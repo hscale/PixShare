@@ -1,5 +1,6 @@
-package com.appofy.android.pixshare.fragments;
+package com.appofy.android.pixshare;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -8,17 +9,16 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -31,7 +31,8 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 
-public class ProfileFragment extends Fragment {
+
+public class MyProfileActivity extends ActionBarActivity {
 
     //API URL
     public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
@@ -126,28 +127,27 @@ public class ProfileFragment extends Fragment {
             return result;
         }
 
-    }
+        }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_my_profile);
+        profilePic = (ImageView) findViewById(R.id.ivProfilePic);
+        name = (TextView) findViewById(R.id.tvName);
+        userName = (TextView) findViewById(R.id.tvUserName);
+        website = (TextView) findViewById(R.id.tvWebsite);
+        bio = (TextView) findViewById(R.id.tvBio);
+        loggedInUsing = (TextView) findViewById(R.id.tvLoggedInUsing);
+        email = (TextView) findViewById(R.id.tvEmail);
+        phone = (TextView) findViewById(R.id.tvPhone);
+        gender = (TextView) findViewById(R.id.tvGender);
 
-        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-        profilePic = (ImageView) rootView.findViewById(R.id.ivProfilePic);
-        name = (TextView) rootView.findViewById(R.id.tvName);
-        userName = (TextView) rootView.findViewById(R.id.tvUserName);
-        website = (TextView) rootView.findViewById(R.id.tvWebsite);
-        bio = (TextView) rootView.findViewById(R.id.tvBio);
-        loggedInUsing = (TextView) rootView.findViewById(R.id.tvLoggedInUsing);
-        email = (TextView) rootView.findViewById(R.id.tvEmail);
-        phone = (TextView) rootView.findViewById(R.id.tvPhone);
-        gender = (TextView) rootView.findViewById(R.id.tvGender);
-
-        btnLogout = (Button) rootView.findViewById(R.id.btnSignOut);
+        btnLogout = (Button) findViewById(R.id.btnSignOut);
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams chkParams = new RequestParams();
-        session = new SessionManager(getActivity().getApplicationContext());
+        session = new SessionManager(getApplicationContext());
         chkParams.put("userId", session.getUserDetails().get("userId"));
 
         client.get(initialURL + "profile", chkParams, new AsyncHttpResponseHandler() {
@@ -167,10 +167,10 @@ public class ProfileFragment extends Fragment {
                         }
                         new ProfileTask().execute(profilePicURL);
                     } else {
-                        Toast.makeText(getActivity(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getBaseContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
-                    Toast.makeText(getActivity(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
                     e.printStackTrace();
                 }
             }
@@ -179,36 +179,43 @@ public class ProfileFragment extends Fragment {
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
                 // When Http response code is '404'
                 if (statusCode == 404) {
-                    Toast.makeText(getActivity(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code is '500'
                 else if (statusCode == 500) {
-                    Toast.makeText(getActivity(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
                 }
                 // When Http response code other than 404, 500
                 else {
-                    Toast.makeText(getActivity(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-        /**
-         * Logout button click event
-         * */
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                // Clear the session data
-                // This will clear all session data and
-                // redirect user to LoginActivity
-                session.logoutUser();
-            }
-        });
+        }
 
 
 
-        return rootView;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_my_profile, menu);
+        return true;
     }
 
-}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit_profile:
+                Intent editProfileIntent = new Intent(getApplicationContext(), EditProfileActivity.class);
+                startActivity(editProfileIntent);
+                return true;
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    }
+

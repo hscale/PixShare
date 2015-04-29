@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,7 +17,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.AddFriendActivity;
+import com.appofy.android.pixshare.AddGroupActivity;
+import com.appofy.android.pixshare.InviteFriendsActivity;
 import com.appofy.android.pixshare.ManageFriendsGroupsActivity;
+import com.appofy.android.pixshare.MyProfileActivity;
 import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.CustomListGroups;
 import com.appofy.android.pixshare.util.SessionManager;
@@ -159,5 +164,29 @@ public class GroupsFragment extends Fragment {
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_manage_groups, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_group:
+                Intent addGroupIntent = new Intent(getActivity().getApplicationContext(), AddGroupActivity.class);
+                startActivity(addGroupIntent);
+                return true;
+            case R.id.edit_group:
+                Intent manageGroupIntent = new Intent(getActivity().getApplicationContext(), ManageFriendsGroupsActivity.class);
+                startActivity(manageGroupIntent);
+                return true;
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(getActivity(), MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

@@ -80,14 +80,7 @@
             android:name=".ManageFriendsGroupsActivity"
             android:label="ManageFriendGroupActivity" >
         </activity>
-        <activity
-            android:name=".ManageFriendsActivity"
-            android:label="@string/title_activity_manage_friends" >
-        </activity>
-        <activity
-            android:name=".ManageGroupsActivity"
-            android:label="@string/title_activity_manage_groups" >
-        </activity>
+
         <activity
             android:name=".FriendProfileActivity"
             android:label="FriendProfileActivity" >
@@ -95,6 +88,18 @@
         <activity
             android:name=".InviteFriendsActivity"
             android:label="@string/title_activity_invite_friends" >
+        </activity>
+        <activity
+            android:name=".AddGroupActivity"
+            android:label="@string/title_activity_add_group" >
+        </activity>
+        <activity
+            android:name=".MyProfileActivity"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
+        <activity
+            android:name=".EditProfileActivity"
+            android:label="@string/title_activity_edit_profile" >
         </activity>
     </application>
 
