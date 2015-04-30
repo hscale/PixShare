@@ -38,7 +38,6 @@ public class AlbumGridViewAdapter extends BaseAdapter {
     private ArrayList<Integer> mPhotoIds = new ArrayList<Integer>();
     private int mImageWidth;
     Bitmap bitmap;
-    ImageView imageView;
 
     public AlbumGridViewAdapter(Activity activity, ArrayList<String> filePaths, ArrayList<Integer> photoIds,
                                 int mImageWidth) {
@@ -110,7 +109,7 @@ public class AlbumGridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-
+        final ImageView imageView;
         if (convertView == null) {
             imageView = new ImageView(mActivity);
         } else {
@@ -128,8 +127,45 @@ public class AlbumGridViewAdapter extends BaseAdapter {
         System.out.println("Image URI:" + mFilePaths.get(position));
 
         //URL url = new URL(mFilePaths.get(position));
+
+        class LoadImage extends AsyncTask<Integer, String, Bitmap> {
+
+            int position;
+            protected Bitmap doInBackground(Integer... args) {
+                try {
+                    position = args[0];
+                    bitmap = BitmapFactory.decodeStream((InputStream)new URL(mFilePaths.get(args[0])).getContent());
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return bitmap;
+
+            }
+
+            protected void onPostExecute(Bitmap image) {
+
+                if(image != null){
+                imageView.setImageBitmap(image);
+                // image view click listener
+                imageView.setOnClickListener(new OnImageClickListener(position));
+
+                }else{
+                    System.out.println("Image Does Not exist or Network Error");
+
+                }
+            }
+        }
+
         new LoadImage().execute(position);
 
+
+
+
+        //imageView.setImageBitmap(imageView);
+        // image view click listener
+        //imageView.setOnClickListener(new OnImageClickListener(position));
 
 
         return imageView;
@@ -140,34 +176,38 @@ public class AlbumGridViewAdapter extends BaseAdapter {
         return this.mFilePaths.get(position);
     }
 
-    private class LoadImage extends AsyncTask<Integer, String, Bitmap> {
+    /*private class LoadImage extends AsyncTask<Integer, String, Bitmap[]> {
 
         int position;
-        protected Bitmap doInBackground(Integer... args) {
+        protected Bitmap[] doInBackground(Integer... args) {
             try {
-                position = args[0];
-                bitmap = BitmapFactory.decodeStream((InputStream)new URL(mFilePaths.get(args[0])).getContent());
+                //position = args[0];
+                //bitmap = BitmapFactory.decodeStream((InputStream)new URL(mFilePaths.get(args[0])).getContent());
+                for(int i = 0 ; i<mFilePaths.size();i++) {
+                    bitmaps[i] = BitmapFactory.decodeStream((InputStream)new URL(mFilePaths.get(i)).getContent());
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return bitmap;
+            //return bitmap;
+            return bitmaps;
         }
 
-        protected void onPostExecute(Bitmap image) {
+        protected void onPostExecute(Bitmap[] image) {
 
             if(image != null){
-                imageView.setImageBitmap(image);
+                /*imageView.setImageBitmap(image);
                 // image view click listener
                 imageView.setOnClickListener(new OnImageClickListener(position));
-
-            }else{
+*/
+       /*     }else{
 
 
                System.out.println("Image Does Not exist or Network Error");
 
             }
         }
-    }
+    }*/
 
 }
