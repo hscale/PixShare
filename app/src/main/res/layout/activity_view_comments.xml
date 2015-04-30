@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.appofy.android.pixshare.ViewCommentsActivity">
+
+    <TextView
+        android:id="@+id/likes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+    />
+
+    <!-- Editext for Search -->
+    <EditText android:id="@+id/inputCommentSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search Comments.."
+        android:layout_below="@+id/likes"
+        android:inputType="textVisiblePassword"/>
+
+    <!-- List View -->
+    <ListView
+        android:id="@+id/comments_list_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/inputCommentSearch"/>
+
+    <!-- Editext for Search -->
+    <EditText android:id="@+id/inputPostComment"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write a Comment.."
+        android:inputType="textVisiblePassword"
+        android:layout_below="@+id/comments_list_view"/>
+
+    <Button android:id="@+id/inputPostCommentBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post Comment"
+        android:layout_below="@+id/inputPostComment"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

@@ -19,20 +19,43 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.helper.AlbumTouchImageView;
+import com.appofy.android.pixshare.util.Constants;
+import com.appofy.android.pixshare.util.CustomListComments;
+import com.appofy.android.pixshare.util.CustomListGroups;
+import com.appofy.android.pixshare.util.SessionManager;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class AlbumFullscreenImageAdapter extends PagerAdapter {
     private Activity mActivity;
     private ArrayList<String> mImagePaths;
     private ArrayList<Integer> mPhotoIds;
     private LayoutInflater mInflater;
+    ArrayAdapter<String> adapter;
     Bitmap bitmap;
     AlbumTouchImageView imgDisplay;
+    String sectionurl = "/photo";
+    String suburl = "/album/photo";
+    String desturl = null;
+    SessionManager session;
+    ListView lv;
+    ArrayList<String> mComments;
+    TextView mLikes;
     // constructor
     public AlbumFullscreenImageAdapter(Activity activity,
                                   ArrayList<String> imagePaths, ArrayList<Integer> photoIds) {
@@ -55,35 +78,28 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         System.out.println("In instantiateItem");
-
         Button btnClose;
-
+        session = new SessionManager(mActivity);
+        desturl = Constants.initialURL + sectionurl + suburl;
         mInflater = (LayoutInflater) mActivity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = mInflater.inflate(R.layout.layout_fullscreen_image, container,
                 false);
         System.out.println("Image Paths:"+mImagePaths.toString());
         imgDisplay = (AlbumTouchImageView) viewLayout.findViewById(R.id.imgDisplay);
-        btnClose = (Button) viewLayout.findViewById(R.id.btnClose);
-
         /*BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         Bitmap bitmap = BitmapFactory.decodeFile(mImagePaths.get(position), options);
         imgDisplay.setImageBitmap(bitmap);*/
+
+
         new LoadImage().execute(position);
-        // close button click event
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mActivity.finish();
-            }
-        });
+
 
         ((ViewPager) container).addView(viewLayout);
 
         return viewLayout;
     }
-
 
     private class LoadImage extends AsyncTask<Integer, String, Bitmap> {
 
@@ -104,9 +120,7 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
             if(image != null){
                 imgDisplay.setImageBitmap(image);
 
-
             }else{
-
 
                 System.out.println("Image Does Not exist or Network Error");
 

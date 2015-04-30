@@ -144,12 +144,66 @@ public class AddNewPhotoActivity extends ActionBarActivity {
                 else if(data.getClipData()!=null){
                     // Multiple images
                     ClipData clip = data.getClipData();
-
+                    desturl = url + sectionurl + suburl;
                     for (int i = 0; i < clip.getItemCount(); i++) {
                         ClipData.Item item = clip.getItemAt(i);
                         Uri uri = item.getUri();
                         System.out.println("In Selected Images Loop:"+uri);
-                        
+                        userId = Integer.parseInt(session.getUserDetails().get("userId"));
+                        System.out.println("In AlbumsFragment UserID:"+userId);
+                        // Make RESTful webservice call using AsyncHttpClient object
+
+                        AsyncHttpClient client = new AsyncHttpClient();
+
+                        RequestParams chkParams = new RequestParams();
+                        chkParams.put("userId", userId);
+                        chkParams.put("caption", "");
+                        chkParams.put("albumId",albumId);
+                        chkParams.put("latitude", 0);
+                        chkParams.put("longitude", 0);
+                        try {
+                            String path = getRealPathFromURI(getApplicationContext(),uri);
+                            System.out.println(path);
+                            chkParams.put("file",new File(path));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        client.post(desturl, chkParams, new AsyncHttpResponseHandler() {
+
+                            @Override
+                            public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                try {
+                                    JSONObject photoJSON = new JSONObject(new String(response));
+                                    if (photoJSON.getString("responseFlag").equals("success")) {
+                                        Intent i = new Intent(getApplicationContext(), AlbumGridActivity.class);
+                                        i.putExtra("albumId",albumId);
+                                        startActivity(i);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                    e.printStackTrace();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                // When Http response code is '404'
+                                if (statusCode == 404) {
+                                    Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code is '500'
+                                else if (statusCode == 500) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                                }
+                                // When Http response code other than 404, 500
+                                else {
+                                    Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
                         // Process the uri...
                     }
                 }
