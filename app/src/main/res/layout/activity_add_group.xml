@@ -14,18 +14,20 @@
         android:layout_marginBottom="10dip"/>
 
     <!-- Group Submit button -->
-    <Button android:id="@+id/btnGroupSubmit"
+    <!--<Button android:id="@+id/btnGroupSubmit"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtGroupName"
-        android:text="Submit"/>
+        android:text="Submit"
+        android:enabled="false"
+        />-->
 
     <!-- Editext for Friend Search -->
     <EditText android:id="@+id/inputGroupFriendSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Search Friends.."
-        android:layout_below="@+id/btnGroupSubmit"
+        android:layout_below="@+id/txtGroupName"
         android:inputType="textVisiblePassword"/>
 
     <!-- List View -->

@@ -343,5 +343,17 @@
             android:textSize="17sp"
             android:visibility="invisible"
             android:layout_toRightOf="@+id/btAcceptFriendRequest"/>
+
+        <Button
+            android:id="@+id/btAddNewMemberToGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/com_facebook_blue"
+
+            android:textSize="17sp"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 </LinearLayout>

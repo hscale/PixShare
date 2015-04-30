@@ -34,7 +34,7 @@ import java.io.InputStream;
 
 public class FriendProfileActivity extends ActionBarActivity {
 
-    String friendId, friendName;
+    String friendId, groupName;
 
     // Session Manager Class
     SessionManager session;
@@ -42,7 +42,7 @@ public class FriendProfileActivity extends ActionBarActivity {
     protected Bitmap image;
     protected ImageView profilePic;
     protected TextView name, userName, website, bio, loggedInUsing, email, phone, gender;
-    protected Button sendRequest, acceptFriendRequest,rejectFriendRequest,addToGroup;
+    protected Button sendRequest, acceptFriendRequest,rejectFriendRequest,addToGroup,addNewMemberToGroup;
     protected JSONArray jsonArray;
     String groupId;
 
@@ -362,6 +362,64 @@ public class FriendProfileActivity extends ActionBarActivity {
                             }
                         }
                     });
+                }if(addNewMemberToGroup.getVisibility()==View.VISIBLE){
+                    addNewMemberToGroup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            try{
+                                JSONArray jarray = new JSONArray();
+                                jarray.put(friendId);
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                RequestParams chkParams = new RequestParams();
+                                session = new SessionManager(getApplicationContext());
+                                chkParams.put("groupOwnerUserId", session.getUserDetails().get("userId"));
+                                chkParams.put("groupMembersIdList", jarray);
+                                chkParams.put("groupName",groupName);
+
+                                client.post(Constants.initialURL + "/pixshare/group", chkParams, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                        try {
+                                            //String socialMediaId = null;
+                                            JSONObject jobj = new JSONObject(new String(response));
+                                            if (jobj.getString("responseFlag").equals("success")) {
+                                                addNewMemberToGroup.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Added to your group", Toast.LENGTH_LONG).show();
+
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch (JSONException je) {
+                                            Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                            je.printStackTrace();
+                                        }catch(Exception e){
+                                            Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                        // When Http response code is '404'
+                                        if (statusCode == 404) {
+                                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code is '500'
+                                        else if (statusCode == 500) {
+                                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code other than 404, 500
+                                        else {
+                                            Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }catch(Exception j){
+                                j.printStackTrace();
+                            }
+                        }
+                    });
                 }
             } catch (JSONException je) {
                 je.printStackTrace();
@@ -405,6 +463,7 @@ public class FriendProfileActivity extends ActionBarActivity {
         acceptFriendRequest = (Button) findViewById(R.id.btAcceptFriendRequest);
         rejectFriendRequest = (Button) findViewById(R.id.btRejectFriendRequest);
         addToGroup = (Button) findViewById(R.id.btAddToGroup);
+        addNewMemberToGroup = (Button) findViewById(R.id.btAddNewMemberToGroup);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -424,6 +483,13 @@ public class FriendProfileActivity extends ActionBarActivity {
                     addToGroup.setText("Add to group - "+extras.getString("groupName"));
                     addToGroup.setVisibility(View.VISIBLE);
                     groupId = extras.getString("groupId");
+                }
+            }else if(extras.containsKey("newGroupFlag")){
+                if(extras.getString("newGroupFlag").equals("T")){
+                    addNewMemberToGroup.setText("Add to group - "+extras.getString("groupName"));
+                    addNewMemberToGroup.setVisibility(View.VISIBLE);
+                    groupName = extras.getString("groupName");
+                    friendId = extras.getString("friendId");
                 }
             }
         }
