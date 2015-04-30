@@ -76,7 +76,7 @@ public class RegisterActivity extends ActionBarActivity {
                         //check if userName is available
                         RequestParams chkParams = new RequestParams();
                         chkParams.put("userName", userName);
-                        client.get(Constants.initialURL+"user/email/availability",chkParams,new AsyncHttpResponseHandler(){
+                        client.get(Constants.initialURL+"/pixshare/user/email/availability",chkParams,new AsyncHttpResponseHandler(){
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] response){
@@ -86,7 +86,7 @@ public class RegisterActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Username available, now registering...", Toast.LENGTH_LONG).show();
                                         // register user if userName is available
                                         //code to register to backend start
-                                        String apiURL = Constants.initialURL + "user/email";
+                                        String apiURL = Constants.initialURL + "/pixshare/user/email";
                                         RequestParams params = new RequestParams();
                                         params.put("firstName", firstName);
                                         params.put("lastName", lastName);

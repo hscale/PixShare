@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,6 +19,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.AddFriendActivity;
+import com.appofy.android.pixshare.AddNewAlbumActivity;
+import com.appofy.android.pixshare.AlbumGridActivity;
+import com.appofy.android.pixshare.InviteFriendsActivity;
+import com.appofy.android.pixshare.MyProfileActivity;
+import com.appofy.android.pixshare.PendingFriendRequestActivity;
 import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -156,6 +163,10 @@ public class AlbumsFragment extends Fragment {
                                     long arg3) {
                 String value = (String) adapter.getItemAtPosition(position);
                 Toast.makeText(getActivity().getBaseContext(), value, Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getActivity(), AlbumGridActivity.class);
+
+                i.putExtra("albumId",albumIds[position]);
+                startActivity(i);
             }
         });
 
@@ -165,6 +176,34 @@ public class AlbumsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_album_fragment, menu);
+            inflater.inflate(R.menu.menu_album_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add_album:
+                Intent addAlbumIntent = new Intent(getActivity().getApplicationContext(), AddNewAlbumActivity.class);
+                startActivity(addAlbumIntent);
+                return true;
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            case R.id.friend_request:
+                Intent pendingFriendRequestIntent = new Intent(getActivity().getApplicationContext(), PendingFriendRequestActivity.class);
+                startActivity(pendingFriendRequestIntent);
+                return true;
+            case R.id.signout:
+                session = new SessionManager(getActivity().getApplicationContext());
+                session.logoutUser();
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(getActivity().getApplicationContext(), MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

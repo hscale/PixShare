@@ -69,7 +69,7 @@ public class PendingFriendRequestActivity extends ActionBarActivity {
             session = new SessionManager(getApplicationContext());
             chkParams.put("userId", session.getUserDetails().get("userId"));
 
-            client.get(Constants.initialURL + "user/friend/request", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "/pixshare/user/friend/request", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {

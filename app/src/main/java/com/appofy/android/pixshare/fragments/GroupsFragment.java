@@ -68,7 +68,7 @@ public class GroupsFragment extends Fragment {
         session = new SessionManager(getActivity().getApplicationContext());
         chkParams.put("userId", session.getUserDetails().get("userId"));
 
-        client.get(Constants.initialURL + "group", chkParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.initialURL + "/pixshare/group", chkParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {

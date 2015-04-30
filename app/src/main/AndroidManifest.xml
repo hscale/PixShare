@@ -112,6 +112,10 @@
             android:name=".FriendListAddToGroupActivity"
             android:label="@string/title_activity_friend_list_add_to_group" >
         </activity>
+        <activity
+            android:name=".AddNewPhotoActivity"
+            android:label="@string/title_activity_add_new_photo" >
+        </activity>
     </application>
 
 </manifest>

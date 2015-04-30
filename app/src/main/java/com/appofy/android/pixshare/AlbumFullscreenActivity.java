@@ -24,13 +24,15 @@ public class AlbumFullscreenActivity extends Activity {
 
         mViewPager = (ViewPager) findViewById(R.id.pager);
 
-        mAlbumGridViewHelper = new AlbumGridViewHelper(getApplicationContext());
+        //mAlbumGridViewHelper = new AlbumGridViewHelper(getApplicationContext());
 
         Intent i = getIntent();
         int position = i.getIntExtra("position", 0);
 
+
+        System.out.println("Position:"+position);
         mAdapter = new AlbumFullscreenImageAdapter(AlbumFullscreenActivity.this,
-                mAlbumGridViewHelper.getFilePaths());
+                i.getStringArrayListExtra("filePaths"),i.getIntegerArrayListExtra("photoIds"));
 
         mViewPager.setAdapter(mAdapter);
 

@@ -110,7 +110,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                 chkParams.put("inviteeList", jsonArraySendReq);
                                 chkParams.put("userId", session.getUserDetails().get("userId"));
 
-                                client.post(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+                                client.post(Constants.initialURL + "/pixshare/user/friend", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
@@ -163,7 +163,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                 chkParams.put("requesterUserId", jsonArray.getString(0));
                                 chkParams.put("acceptRejectFlag", "1"); // 1 for accept
 
-                                client.put(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "/pixshare/user/friend", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
@@ -215,7 +215,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                 chkParams.put("requesterUserId", jsonArray.getString(0));
                                 chkParams.put("acceptRejectFlag", "0"); // 0 for reject
 
-                                client.put(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "/pixshare/user/friend", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
@@ -271,7 +271,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                 chkParams.put("updateFlag", "1"); // 1 for adding member
                                 chkParams.put("groupId",groupId);
 
-                                client.put(Constants.initialURL + "group", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "/pixshare/group", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
@@ -322,7 +322,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                 chkParams.put("requesterUserId", jsonArray.getString(0));
                                 chkParams.put("acceptRejectFlag", "0"); // 0 for reject
 
-                                client.put(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "/pixshare/user/friend", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {
@@ -443,7 +443,7 @@ public class FriendProfileActivity extends ActionBarActivity {
         session = new SessionManager(getApplicationContext());
         chkParams.put("friendId", friendId);
 
-        client.get(Constants.initialURL + "user/friend/detail", chkParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.initialURL + "/pixshare/user/friend/detail", chkParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {

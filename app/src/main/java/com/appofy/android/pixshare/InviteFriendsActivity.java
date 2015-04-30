@@ -65,7 +65,7 @@ public class InviteFriendsActivity extends ActionBarActivity {
                         je.printStackTrace();
                     }
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.post(getApplicationContext(), Constants.initialURL + "user/invite/email", params, new AsyncHttpResponseHandler() {
+                    client.post(getApplicationContext(), Constants.initialURL + "/pixshare/user/invite/email", params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                             try {

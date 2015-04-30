@@ -80,7 +80,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
             session = new SessionManager(getApplicationContext());
             chkParams.put("groupId", groupId);
 
-            client.get(Constants.initialURL + "group/members", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "/pixshare/group/members", chkParams, new AsyncHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                     try {

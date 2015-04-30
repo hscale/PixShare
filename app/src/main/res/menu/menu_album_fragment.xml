@@ -8,12 +8,6 @@
         android:orderInCategory="10"
         android:title="add_album" />
     <item
-        android:id="@+id/delete_album"
-        android:icon="@drawable/ic_action_discard"
-        app:showAsAction="ifRoom"
-        android:orderInCategory="10"
-        android:title="delete_album" />
-    <item
         android:id="@+id/invite_friends"
         android:orderInCategory="1"
         app:showAsAction="never"
@@ -24,8 +18,13 @@
         app:showAsAction="never"
         android:title="My Profile"/>
     <item
-        android:id="@+id/signout"
+        android:id="@+id/friend_request"
         android:orderInCategory="3"
+        app:showAsAction="never"
+        android:title="Friend Requests"/>
+    <item
+        android:id="@+id/signout"
+        android:orderInCategory="4"
         app:showAsAction="never"
         android:title="SignOut"/>
 </menu>

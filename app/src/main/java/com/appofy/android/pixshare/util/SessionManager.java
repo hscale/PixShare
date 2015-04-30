@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.appofy.android.pixshare.LandingActivity;
 import com.appofy.android.pixshare.LoginActivity;
 import com.appofy.android.pixshare.MainActivity;
 import com.facebook.login.LoginManager;
@@ -101,7 +102,7 @@ public class SessionManager {
             _context.startActivity(i);
         }else{
             // user is not logged in redirect him to Login Activity
-            Intent i = new Intent(_context, MainActivity.class);
+            Intent i = new Intent(_context, LandingActivity.class);
             // Closing all the Activities
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

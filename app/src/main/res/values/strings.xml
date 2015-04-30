@@ -40,4 +40,5 @@
     <string name="title_activity_pending_friend_request">PendingFriendRequestActivity</string>
     <string name="title_activity_add_friend_to_group">AddFriendToGroupActivity</string>
     <string name="title_activity_friend_list_add_to_group">FriendListAddToGroupActivity</string>
+    <string name="title_activity_add_new_photo">AddNewPhotoActivity</string>
 </resources>

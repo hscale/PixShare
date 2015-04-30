@@ -126,7 +126,7 @@ public class LoginActivity extends ActionBarActivity {
                     RequestParams chkParams = new RequestParams();
                     chkParams.put("userName", username);
                     chkParams.put("password", password);
-                    client.get(Constants.initialURL + "user/email/authenticate", chkParams, new AsyncHttpResponseHandler() {
+                    client.get(Constants.initialURL + "/pixshare/user/email/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -308,7 +308,7 @@ public class LoginActivity extends ActionBarActivity {
             RequestParams chkParams = new RequestParams();
             chkParams.put("socialUserId", profile.getId());
             chkParams.put("token", AccessToken.getCurrentAccessToken().getToken());
-            client.get(Constants.initialURL + "user/social/authenticate", chkParams, new AsyncHttpResponseHandler() {
+            client.get(Constants.initialURL + "/pixshare/user/social/authenticate", chkParams, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] response) {
@@ -328,7 +328,7 @@ public class LoginActivity extends ActionBarActivity {
                                 RequestParams chkParams = new RequestParams();
                                 chkParams.put("socialUserId", profile.getId());
                                 chkParams.put("accessToken", AccessToken.getCurrentAccessToken().getToken());
-                                client.put(Constants.initialURL + "user/social/accesstoken", chkParams, new AsyncHttpResponseHandler() {
+                                client.put(Constants.initialURL + "/pixshare/user/social/accesstoken", chkParams, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try{
@@ -398,7 +398,7 @@ public class LoginActivity extends ActionBarActivity {
                                         params.put("password", AccessToken.getCurrentAccessToken().getToken());
                                         params.put("sourceName","facebook");*/
                                 AsyncHttpClient client = new AsyncHttpClient();
-                                client.post(getApplicationContext(), Constants.initialURL + "user/social", params, new AsyncHttpResponseHandler() {
+                                client.post(getApplicationContext(), Constants.initialURL + "/pixshare/user/social", params, new AsyncHttpResponseHandler() {
                                     @Override
                                     public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                                         try {

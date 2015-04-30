@@ -61,7 +61,7 @@ public class AddFriendActivity extends ActionBarActivity {
                     RequestParams params = new RequestParams();
                     params.put("userName", mUsernameEText.getText().toString());
                     AsyncHttpClient client = new AsyncHttpClient();
-                    client.get(getApplicationContext(), Constants.initialURL + "user", params, new AsyncHttpResponseHandler() {
+                    client.get(getApplicationContext(), Constants.initialURL + "/pixshare/user", params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                             try {
