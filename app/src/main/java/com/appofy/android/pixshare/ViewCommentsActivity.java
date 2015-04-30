@@ -42,6 +42,7 @@ public class ViewCommentsActivity extends ActionBarActivity {
     EditText mPostComment;
     Activity mActivity;
     ArrayAdapter<String> adapter;
+    Button mInputPostLikeBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +54,7 @@ public class ViewCommentsActivity extends ActionBarActivity {
         mPostCommentBtn = (Button) findViewById(R.id.inputPostCommentBtn);
         mLikes = (TextView) findViewById(R.id.likes);
         lv = (ListView) findViewById(R.id.comments_list_view);
-
+        mInputPostLikeBtn= (Button) findViewById(R.id.inputPostLikeBtn);
         mPostCommentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,6 +106,56 @@ public class ViewCommentsActivity extends ActionBarActivity {
 
           });
 
+        mInputPostLikeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams chkParams = new RequestParams();
+                chkParams.put("photoId", getIntent().getIntExtra("photoId",0));
+                chkParams.put("userId",session.getUserDetails().get("userId"));
+                client.post(Constants.initialURL + sectionurl + "/album/photo/like", chkParams, new AsyncHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                        try {
+
+                            JSONObject photoInfoJSON = new JSONObject(new String(response));
+                            if (photoInfoJSON.getString("responseFlag").equals("success")) {
+
+                                Intent i = new Intent(getApplicationContext(), ViewCommentsActivity.class);
+                                i.putExtra("photoId",getIntent().getIntExtra("photoId",0));
+                                startActivity(i);
+
+                            } else {
+                                Toast.makeText(mActivity, "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (Exception e) {
+                            Toast.makeText(mActivity, "Error Occurred!", Toast.LENGTH_LONG).show();
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                        // When Http response code is '404'
+                        if (statusCode == 404) {
+                            Toast.makeText(mActivity, "Requested resource not found", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code is '500'
+                        else if (statusCode == 500) {
+                            Toast.makeText(mActivity, "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                        }
+                        // When Http response code other than 404, 500
+                        else {
+                            Toast.makeText(mActivity, "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+            }
+
+
+        });
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams chkParams = new RequestParams();
         chkParams.put("photoId", getIntent().getIntExtra("photoId",0));
@@ -134,8 +185,21 @@ public class ViewCommentsActivity extends ActionBarActivity {
 
                         //show likes
                         JSONArray likesArray = photoObject.getJSONArray("likes");
-                        mLikes.setText("Likes:" + likesArray.length());
 
+
+                        String likes="Likes: <" + likesArray.length()+">";
+                        if(likesArray.length()!=0) {
+                            int count = likesArray.length();
+                            for (int i = 0; i < count; i++) {
+                                JSONObject likeObj = likesArray.getJSONObject(i);
+                                likes+=likeObj.getString("userName")+", ";
+                                if(likeObj.getInt("userId")== Integer.parseInt(session.getUserDetails().get("userId")))
+                                {
+                                    mInputPostLikeBtn.setEnabled(false);
+                                }
+                            }
+                        }
+                        mLikes.setText(likes);
                     } else {
                         Toast.makeText(mActivity, "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }

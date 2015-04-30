@@ -48,7 +48,6 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
     private LayoutInflater mInflater;
     ArrayAdapter<String> adapter;
     Bitmap bitmap;
-    AlbumTouchImageView imgDisplay;
     String sectionurl = "/photo";
     String suburl = "/album/photo";
     String desturl = null;
@@ -77,10 +76,9 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        final AlbumTouchImageView imgDisplay;
         System.out.println("In instantiateItem");
         Button btnClose;
-        session = new SessionManager(mActivity);
-        desturl = Constants.initialURL + sectionurl + suburl;
         mInflater = (LayoutInflater) mActivity
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewLayout = mInflater.inflate(R.layout.layout_fullscreen_image, container,
@@ -93,6 +91,33 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
         imgDisplay.setImageBitmap(bitmap);*/
 
 
+        class LoadImage extends AsyncTask<Integer, String, Bitmap> {
+
+            int position;
+            protected Bitmap doInBackground(Integer... args) {
+                try {
+                    position = args[0];
+                    bitmap = BitmapFactory.decodeStream((InputStream)new URL(mImagePaths.get(args[0])).getContent());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return bitmap;
+            }
+
+            protected void onPostExecute(Bitmap image) {
+
+                if(image != null){
+                    imgDisplay.setImageBitmap(image);
+
+                }else{
+
+                    System.out.println("Image Does Not exist or Network Error");
+
+                }
+            }
+        }
+
         new LoadImage().execute(position);
 
 
@@ -101,32 +126,7 @@ public class AlbumFullscreenImageAdapter extends PagerAdapter {
         return viewLayout;
     }
 
-    private class LoadImage extends AsyncTask<Integer, String, Bitmap> {
 
-        int position;
-        protected Bitmap doInBackground(Integer... args) {
-            try {
-                position = args[0];
-                bitmap = BitmapFactory.decodeStream((InputStream)new URL(mImagePaths.get(args[0])).getContent());
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        protected void onPostExecute(Bitmap image) {
-
-            if(image != null){
-                imgDisplay.setImageBitmap(image);
-
-            }else{
-
-                System.out.println("Image Does Not exist or Network Error");
-
-            }
-        }
-    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {

@@ -12,14 +12,22 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
     />
-
+    <Button android:id="@+id/inputPostLikeBtn"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Like"
+        android:layout_below="@+id/likes"
+        android:layout_centerHorizontal="true" />
     <!-- Editext for Search -->
     <EditText android:id="@+id/inputCommentSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Search Comments.."
-        android:layout_below="@+id/likes"
+        android:layout_below="@+id/inputPostLikeBtn"
         android:inputType="textVisiblePassword"/>
+
+
 
     <!-- List View -->
     <ListView

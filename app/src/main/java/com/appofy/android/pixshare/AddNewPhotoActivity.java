@@ -143,7 +143,7 @@ public class AddNewPhotoActivity extends ActionBarActivity {
                 }
                 else if(data.getClipData()!=null){
                     // Multiple images
-                    ClipData clip = data.getClipData();
+                    final ClipData clip = data.getClipData();
                     desturl = url + sectionurl + suburl;
                     for (int i = 0; i < clip.getItemCount(); i++) {
                         ClipData.Item item = clip.getItemAt(i);
@@ -176,9 +176,7 @@ public class AddNewPhotoActivity extends ActionBarActivity {
                                 try {
                                     JSONObject photoJSON = new JSONObject(new String(response));
                                     if (photoJSON.getString("responseFlag").equals("success")) {
-                                        Intent i = new Intent(getApplicationContext(), AlbumGridActivity.class);
-                                        i.putExtra("albumId",albumId);
-                                        startActivity(i);
+
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                     }
@@ -206,6 +204,10 @@ public class AddNewPhotoActivity extends ActionBarActivity {
                         });
                         // Process the uri...
                     }
+
+                    Intent i = new Intent(getApplicationContext(), LandingActivity.class);
+                    startActivity(i);
+
                 }
 
                 else

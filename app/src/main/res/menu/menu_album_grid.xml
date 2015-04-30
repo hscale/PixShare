@@ -6,8 +6,12 @@
         android:id="@+id/add_photos_to_album"
         android:icon="@drawable/ic_action_new"
         app:showAsAction="ifRoom"
-        android:orderInCategory="10"
         android:title="add_photos_to_album" />
+    <item
+        android:id="@+id/share_this_album"
+        android:icon="@drawable/ic_action_share"
+        app:showAsAction="ifRoom"
+        android:title="share_this_album" />
     <item
         android:id="@+id/invite_friends"
         android:orderInCategory="1"

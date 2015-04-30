@@ -162,6 +162,13 @@ public class AlbumGridActivity extends ActionBarActivity {
                 addAlbumIntent.putExtra("albumId",albumId);
                 startActivity(addAlbumIntent);
                 return true;
+
+            case R.id.share_this_album:
+                Intent shareAlbumIntent = new Intent(this, ShareAlbumActivity.class);
+                shareAlbumIntent.putExtra("albumId",albumId);
+                startActivity(shareAlbumIntent);
+                return true;
+
             case R.id.invite_friends:
                 Intent inviteFriendsIntent = new Intent(this, InviteFriendsActivity.class);
                 startActivity(inviteFriendsIntent);

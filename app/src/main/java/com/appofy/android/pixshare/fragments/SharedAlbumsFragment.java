@@ -1,6 +1,7 @@
 package com.appofy.android.pixshare.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,7 +18,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.AlbumGridActivity;
 import com.appofy.android.pixshare.R;
+import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -38,6 +41,8 @@ public class SharedAlbumsFragment extends Fragment {
     String sectionurl = "/photo";
     String suburl = "/user/albums";
     String desturl = null;
+    // Session Manager Class
+    SessionManager session;
 
     String[] albumNames;
     int[] albumIds;
@@ -53,8 +58,8 @@ public class SharedAlbumsFragment extends Fragment {
         inputSearch = (EditText)rootView.findViewById(R.id.inputSharedAlbumSearch);
         desturl = url + sectionurl + suburl;
         //String[] values = new String[] { "Shared Album 1", "Shared Album 2", "Shared Album 3" };
-        // TODO: Need to change it with session value.
-        userId = 15;
+        session = new SessionManager(getActivity().getApplicationContext());
+        userId = Integer.parseInt(session.getUserDetails().get("userId"));
         // Make RESTful webservice call using AsyncHttpClient object
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -148,6 +153,9 @@ public class SharedAlbumsFragment extends Fragment {
                                     long arg3) {
                 String value = (String) adapter.getItemAtPosition(position);
                 Toast.makeText(getActivity().getBaseContext(),value,Toast.LENGTH_LONG).show();
+                Intent i = new Intent(getActivity(), AlbumGridActivity.class);
+                i.putExtra("albumId",albumIds[position]);
+                startActivity(i);
             }
         });
         return rootView;
