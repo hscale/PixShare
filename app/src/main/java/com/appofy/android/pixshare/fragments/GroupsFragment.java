@@ -43,7 +43,7 @@ public class GroupsFragment extends Fragment {
     ArrayAdapter<String> adapter;
     ArrayList<String> groupIds;
     ArrayList<String> groupNames;
-    ArrayList<String> groupOwnerIds;
+    //ArrayList<String> groupOwnerIds;
 
     // Session Manager Class
     SessionManager session;
@@ -74,7 +74,7 @@ public class GroupsFragment extends Fragment {
                 try {
                     groupIds = new ArrayList<String>();
                     groupNames = new ArrayList<String>();
-                    groupOwnerIds = new ArrayList<String>();
+                    //groupOwnerIds = new ArrayList<String>();
                     JSONObject jobj = new JSONObject(new String(response));
                     if (jobj.getString("responseFlag").equals("success")) {
                         JSONArray jsonArray = new JSONArray(jobj.getString("userGroups"));
@@ -83,7 +83,7 @@ public class GroupsFragment extends Fragment {
                             jsonArray1 = new JSONArray(jsonArray.getString(i));
                             groupIds.add(String.valueOf(jsonArray1.get(0)));
                             groupNames.add(String.valueOf(jsonArray1.get(1)));
-                            groupOwnerIds.add(String.valueOf(jsonArray1.get(2)));
+                            //groupOwnerIds.add(String.valueOf(jsonArray1.get(2)));
                         }
 
                         adapter = new CustomListGroups(getActivity(), groupNames);
@@ -100,6 +100,7 @@ public class GroupsFragment extends Fragment {
                                 //Toast.makeText(getBaseContext(), value, Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(getActivity(), ManageFriendsGroupsActivity.class);
                                 i.putExtra("groupId", groupIds.get(position));
+                                i.putExtra("groupName", groupNames.get(position));
                                 startActivity(i);
                             }
                         });

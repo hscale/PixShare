@@ -104,6 +104,14 @@
             android:name=".PendingFriendRequestActivity"
             android:label="@string/title_activity_pending_friend_request" >
         </activity>
+        <activity
+            android:name=".AddFriendToGroupActivity"
+            android:label="@string/title_activity_add_friend_to_group" >
+        </activity>
+        <activity
+            android:name=".FriendListAddToGroupActivity"
+            android:label="@string/title_activity_friend_list_add_to_group" >
+        </activity>
     </application>
 
 </manifest>

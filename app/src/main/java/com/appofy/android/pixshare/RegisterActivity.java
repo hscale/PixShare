@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -30,9 +31,6 @@ public class RegisterActivity extends ActionBarActivity {
 
     // Session Manager Class
     SessionManager session;
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +76,7 @@ public class RegisterActivity extends ActionBarActivity {
                         //check if userName is available
                         RequestParams chkParams = new RequestParams();
                         chkParams.put("userName", userName);
-                        client.get(initialURL+"email/availability",chkParams,new AsyncHttpResponseHandler(){
+                        client.get(Constants.initialURL+"user/email/availability",chkParams,new AsyncHttpResponseHandler(){
 
                             @Override
                             public void onSuccess(int statusCode, Header[] headers, byte[] response){
@@ -88,7 +86,7 @@ public class RegisterActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Username available, now registering...", Toast.LENGTH_LONG).show();
                                         // register user if userName is available
                                         //code to register to backend start
-                                        String apiURL = initialURL + "email";
+                                        String apiURL = Constants.initialURL + "user/email";
                                         RequestParams params = new RequestParams();
                                         params.put("firstName", firstName);
                                         params.put("lastName", lastName);

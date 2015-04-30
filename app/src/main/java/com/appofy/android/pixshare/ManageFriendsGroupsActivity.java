@@ -47,7 +47,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
     ArrayList<String> friendIds;
     ArrayList<Bitmap> friendImages;
     protected Bitmap image;
-    String groupId;
+    String groupId,groupName;
 
     // Session Manager Class
     SessionManager session;
@@ -60,6 +60,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             groupId = extras.getString("groupId");
+            groupName = extras.getString("groupName");
         }
 
         lv =(ListView)findViewById(R.id.group_friend_list_view);
@@ -226,7 +227,9 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_friends_to_group:
-                Intent addFriendIntent = new Intent(getApplicationContext(), AddFriendActivity.class);
+                Intent addFriendIntent = new Intent(getApplicationContext(), AddFriendToGroupActivity.class);
+                addFriendIntent.putExtra("groupId", groupId);
+                addFriendIntent.putExtra("groupName", groupName);
                 startActivity(addFriendIntent);
                 return true;
             case R.id.invite_friends:

@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -33,9 +34,6 @@ import java.io.InputStream;
 
 
 public class MyProfileActivity extends ActionBarActivity {
-
-    //API URL
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest/pixshare/user/";
 
     // Session Manager Class
     SessionManager session;
@@ -150,7 +148,7 @@ public class MyProfileActivity extends ActionBarActivity {
         session = new SessionManager(getApplicationContext());
         chkParams.put("userId", session.getUserDetails().get("userId"));
 
-        client.get(initialURL + "profile", chkParams, new AsyncHttpResponseHandler() {
+        client.get(Constants.initialURL + "user/profile", chkParams, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {

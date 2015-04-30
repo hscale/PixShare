@@ -36,22 +36,21 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="left"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/name" />
 
                 <EditText
-                    android:id="@+id/ivEditName"
+                    android:id="@+id/etEditFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/ivName"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="left"
-                    android:hint="Name"
+                    android:hint="First Name"
                     android:textColor="#ff232323"
                     android:textSize="18sp" />
             </RelativeLayout>
-
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,24 +58,28 @@
                 android:layout_marginTop="10dp">
 
                 <ImageView
-                    android:id="@+id/ivUserName"
+                    android:id="@+id/ivLName"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_gravity="left"
-                    android:src="@drawable/username" />
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/name" />
 
                 <EditText
-                    android:id="@+id/tvEditUserName"
+                    android:id="@+id/etEditLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/ivUserName"
+                    android:layout_toRightOf="@+id/ivLName"
                     android:fontFamily="sans-serif-medium"
                     android:gravity="left"
-                    android:hint="Username"
+                    android:hint="Last Name"
                     android:textColor="#ff232323"
                     android:textSize="18sp" />
             </RelativeLayout>
+
+
+
 
         </LinearLayout>
     </RelativeLayout>
@@ -100,10 +103,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/website" />
 
             <EditText
-                android:id="@+id/tvEditWebsite"
+                android:id="@+id/etEditWebsite"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -128,10 +132,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/bio" />
 
             <EditText
-                android:id="@+id/tvEditBio"
+                android:id="@+id/etEditBio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -153,13 +158,6 @@
         android:layout_marginTop="20dp"
         android:background="@android:color/darker_gray" />
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        android:background="@android:color/darker_gray" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -179,10 +177,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/email" />
 
             <EditText
-                android:id="@+id/tvEditEmail"
+                android:id="@+id/etEditEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -207,10 +206,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/gender" />
 
             <EditText
-                android:id="@+id/tvEditGender"
+                android:id="@+id/etEditGender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -234,10 +234,11 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="left"
+                android:layout_marginTop="10dp"
                 android:src="@drawable/phone" />
 
             <EditText
-                android:id="@+id/tvEditPhone"
+                android:id="@+id/etEditPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -249,20 +250,17 @@
                 android:textColor="#ff232323"
                 android:textSize="18sp" />
 
-            <!-- Edit Profile Submit button -->
-            <Button android:id="@+id/btnEditProfileSubmit"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvEditPhone"
-                android:text="Submit"/>
         </RelativeLayout>
 
     </LinearLayout>
 
-    <View
+    <!-- Edit Profile Submit button -->
+    <Button android:id="@+id/btnEditProfileSubmit"
         android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="20dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_below="@+id/etEditPhone"
+        android:text="Submit"/>
 </LinearLayout>

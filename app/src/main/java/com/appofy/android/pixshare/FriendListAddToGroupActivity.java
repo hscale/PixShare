@@ -4,27 +4,21 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Button;
-import android.widget.TextView;
 
 
-public class EditProfileActivity extends ActionBarActivity {
-
-    protected TextView edFirstName, edUserName, edWebsite, edBio, edLastName, edEmail, edPhone, edGender;
-    protected Button btnEdSubmit;
+public class FriendListAddToGroupActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
-
+        setContentView(R.layout.activity_friend_list_add_to_group);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_edit_profile, menu);
+        getMenuInflater().inflate(R.menu.menu_friend_list_add_to_group, menu);
         return true;
     }
 

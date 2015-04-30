@@ -42,8 +42,9 @@ public class FriendProfileActivity extends ActionBarActivity {
     protected Bitmap image;
     protected ImageView profilePic;
     protected TextView name, userName, website, bio, loggedInUsing, email, phone, gender;
-    protected Button sendRequest, acceptFriendRequest,rejectFriendRequest;
+    protected Button sendRequest, acceptFriendRequest,rejectFriendRequest,addToGroup;
     protected JSONArray jsonArray;
+    String groupId;
 
     private class FriendProfileTask extends AsyncTask<String, Void, Bitmap> {
 
@@ -117,7 +118,7 @@ public class FriendProfileActivity extends ActionBarActivity {
                                             JSONObject jobj = new JSONObject(new String(response));
                                             if (jobj.getString("responseFlag").equals("success")) {
                                                 sendRequest.setVisibility(View.INVISIBLE);
-                                                Toast.makeText(getApplicationContext(),"Friend Request Sent",Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), "Friend Request Sent", Toast.LENGTH_LONG).show();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                             }
@@ -223,7 +224,114 @@ public class FriendProfileActivity extends ActionBarActivity {
                                             if (jobj.getString("responseFlag").equals("success")) {
                                                 acceptFriendRequest.setVisibility(View.INVISIBLE);
                                                 rejectFriendRequest.setVisibility(View.INVISIBLE);
-                                                Toast.makeText(getApplicationContext(),"You are now friends",Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(),"Friend Request Rejected Successfully",Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch (Exception e) {
+                                            Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                        // When Http response code is '404'
+                                        if (statusCode == 404) {
+                                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code is '500'
+                                        else if (statusCode == 500) {
+                                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code other than 404, 500
+                                        else {
+                                            Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }catch(JSONException j){
+                                j.printStackTrace();
+                            }
+                        }
+                    });
+                }if(addToGroup.getVisibility()==View.VISIBLE){
+                    addToGroup.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            try{
+                                JSONArray jarray = new JSONArray();
+                                jarray.put(jsonArray.getString(0));
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                RequestParams chkParams = new RequestParams();
+                                session = new SessionManager(getApplicationContext());
+                                chkParams.put("userId", session.getUserDetails().get("userId"));
+                                chkParams.put("groupMembersIdList", jarray);
+                                chkParams.put("updateFlag", "1"); // 1 for adding member
+                                chkParams.put("groupId",groupId);
+
+                                client.put(Constants.initialURL + "group", chkParams, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                        try {
+                                            //String socialMediaId = null;
+                                            JSONObject jobj = new JSONObject(new String(response));
+                                            if (jobj.getString("responseFlag").equals("success")) {
+                                                addToGroup.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "Added to your group", Toast.LENGTH_LONG).show();
+                                            } else {
+                                                Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                            }
+                                        } catch (Exception e) {
+                                            Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
+                                        // When Http response code is '404'
+                                        if (statusCode == 404) {
+                                            Toast.makeText(getApplicationContext(), "Requested resource not found", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code is '500'
+                                        else if (statusCode == 500) {
+                                            Toast.makeText(getApplicationContext(), "Something went wrong at server end", Toast.LENGTH_LONG).show();
+                                        }
+                                        // When Http response code other than 404, 500
+                                        else {
+                                            Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                });
+                            }catch(JSONException j){
+                                j.printStackTrace();
+                            }
+                        }
+                    });
+                    rejectFriendRequest.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            try{
+                                AsyncHttpClient client = new AsyncHttpClient();
+                                RequestParams chkParams = new RequestParams();
+                                session = new SessionManager(getApplicationContext());
+                                chkParams.put("userId", session.getUserDetails().get("userId"));
+                                chkParams.put("requesterUserId", jsonArray.getString(0));
+                                chkParams.put("acceptRejectFlag", "0"); // 0 for reject
+
+                                client.put(Constants.initialURL + "user/friend", chkParams, new AsyncHttpResponseHandler() {
+                                    @Override
+                                    public void onSuccess(int statusCode, Header[] headers, byte[] response) {
+                                        try {
+                                            //String socialMediaId = null;
+                                            JSONObject jobj = new JSONObject(new String(response));
+                                            if (jobj.getString("responseFlag").equals("success")) {
+                                                acceptFriendRequest.setVisibility(View.INVISIBLE);
+                                                rejectFriendRequest.setVisibility(View.INVISIBLE);
+                                                Toast.makeText(getApplicationContext(), "You are now friends", Toast.LENGTH_LONG).show();
                                             } else {
                                                 Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                             }
@@ -296,6 +404,8 @@ public class FriendProfileActivity extends ActionBarActivity {
         sendRequest = (Button) findViewById(R.id.btSendRequest);
         acceptFriendRequest = (Button) findViewById(R.id.btAcceptFriendRequest);
         rejectFriendRequest = (Button) findViewById(R.id.btRejectFriendRequest);
+        addToGroup = (Button) findViewById(R.id.btAddToGroup);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             friendId = extras.getString("friendId");
@@ -306,9 +416,14 @@ public class FriendProfileActivity extends ActionBarActivity {
             }
             else if(extras.containsKey("friendRequestFlag")){
                 if(extras.getString("friendRequestFlag").equals("T")){
-                    //TODO set up buttons to accept or reject friend request
                     acceptFriendRequest.setVisibility(View.VISIBLE);
                     rejectFriendRequest.setVisibility(View.VISIBLE);
+                }
+            }else if(extras.containsKey("addToGroup")){
+                if(extras.getString("addToGroup").equals("T")){
+                    addToGroup.setText("Add to group - "+extras.getString("groupName"));
+                    addToGroup.setVisibility(View.VISIBLE);
+                    groupId = extras.getString("groupId");
                 }
             }
         }

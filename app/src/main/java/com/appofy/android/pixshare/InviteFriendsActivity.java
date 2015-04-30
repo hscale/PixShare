@@ -14,6 +14,8 @@ import com.appofy.android.pixshare.util.Constants;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.facebook.share.model.AppInviteContent;
+import com.facebook.share.widget.AppInviteDialog;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -40,8 +42,15 @@ public class InviteFriendsActivity extends ActionBarActivity {
         txtEmailIds = (EditText) findViewById(R.id.inputFriendSendEmail);
         btnSendInvite = (Button) findViewById(R.id.inputFriendSendEmailBtn);
         btnSendFBInvite = (Button) findViewById(R.id.inputFriendFBInviteBtn);
+
         // Session Manager
         session = new SessionManager(getApplicationContext());
+        if(session.isLoggedIn()){
+            if(session.getUserDetails().get("socialMediaFlag").equals("T") &&
+                    session.getUserDetails().get("socialMediaId").equals("1")){
+                btnSendFBInvite.setVisibility(View.VISIBLE);
+            }
+        }
 
         btnSendInvite.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,6 +112,26 @@ public class InviteFriendsActivity extends ActionBarActivity {
 
             }
         });
+
+        btnSendFBInvite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String appLinkUrl, previewImageUrl;
+
+                appLinkUrl = "https://fb.me/1579608072297603";
+                previewImageUrl = "https://scontent-2.2914.fna.fbcdn.net/hphotos-xaf1/t39.2081-0/11057101_1572801749644902_140055244_n.jpg";
+
+                if (AppInviteDialog.canShow()) {
+                    AppInviteContent content = new AppInviteContent.Builder()
+                            .setApplinkUrl(appLinkUrl)
+                            .setPreviewImageUrl(previewImageUrl)
+                            .build();
+                    AppInviteDialog.show(InviteFriendsActivity.this, content);
+                }
+            }
+        });
+
+
     }
 
 
