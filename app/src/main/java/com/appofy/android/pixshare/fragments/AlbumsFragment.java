@@ -100,7 +100,7 @@ public class AlbumsFragment extends Fragment {
                                 R.layout.album_list_item,R.id.album_name, albumNames);
                         lv.setAdapter(adapter);
                     } else {
-                        Toast.makeText(getActivity(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Error Occurred!", Toast.LENGTH_LONG).show();
@@ -124,10 +124,6 @@ public class AlbumsFragment extends Fragment {
                 }
             }
         });
-
-
-
-
 
 
         /**
@@ -162,9 +158,9 @@ public class AlbumsFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3) {
                 String value = (String) adapter.getItemAtPosition(position);
-                Toast.makeText(getActivity().getBaseContext(), value, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity().getBaseContext(), value, Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), AlbumGridActivity.class);
-
+                i.putExtra("menuFlag",1);
                 i.putExtra("albumId",albumIds[position]);
                 startActivity(i);
             }

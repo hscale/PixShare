@@ -131,7 +131,7 @@ public class GroupsFragment extends Fragment {
 
 
                     } else {
-                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity().getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();

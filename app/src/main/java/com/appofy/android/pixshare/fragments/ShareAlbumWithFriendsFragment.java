@@ -8,12 +8,17 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 
 import com.appofy.android.pixshare.AlbumGridActivity;
+import com.appofy.android.pixshare.InviteFriendsActivity;
+import com.appofy.android.pixshare.MyProfileActivity;
 import com.appofy.android.pixshare.util.Constants;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -96,11 +101,11 @@ public class ShareAlbumWithFriendsFragment extends Fragment {
                                 if (jobj.getString("responseFlag").equals("success")) {
                                     Toast.makeText(getActivity().getApplicationContext(), "Shared with friends successfully.", Toast.LENGTH_LONG).show();
                                     Intent intent = new Intent(getActivity(), AlbumGridActivity.class);
-                                    intent.putExtra("albumId",getActivity().getIntent().getIntExtra("albumId",0));
+                                    intent.putExtra("albumId", getActivity().getIntent().getIntExtra("albumId", 0));
                                     startActivity(intent);
 
                                 } else {
-                                    Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                 }
                             } catch (Exception e) {
                                 Toast.makeText(getActivity().getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
@@ -275,6 +280,32 @@ public class ShareAlbumWithFriendsFragment extends Fragment {
             holder.chkBox.setChecked(p.isSelected());
             holder.chkBox.setTag(p);
             return v;
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(
+            Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_share_with_friends, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            case R.id.signout:
+                session = new SessionManager(getActivity().getApplicationContext());
+                session.logoutUser();
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(getActivity().getApplicationContext(), MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }

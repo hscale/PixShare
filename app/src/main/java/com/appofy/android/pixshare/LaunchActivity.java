@@ -22,7 +22,7 @@ public class LaunchActivity extends ActionBarActivity {
         // Session class instance
         session = new SessionManager(getApplicationContext());
 
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         /**
          * Call this function whenever you want to check user login

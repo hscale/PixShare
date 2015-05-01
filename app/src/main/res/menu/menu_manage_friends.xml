@@ -4,7 +4,7 @@
     tools:context="com.appofy.android.pixshare.fragments.FriendsFragment">
     <item
         android:id="@+id/add_friend"
-        android:icon="@drawable/ic_action_new"
+        android:icon="@drawable/ic_action_add_person"
         app:showAsAction="ifRoom"
         android:orderInCategory="10"
         android:title="add_friend" />
@@ -20,12 +20,12 @@
         android:title="My Profile"/>
     <item
         android:id="@+id/friend_request"
-        android:orderInCategory="2"
+        android:orderInCategory="3"
         app:showAsAction="never"
         android:title="Friend Requests"/>
     <item
         android:id="@+id/signout"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         app:showAsAction="never"
         android:title="SignOut"/>
 </menu>

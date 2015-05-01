@@ -103,6 +103,7 @@ public class AddNewPhotoActivity extends ActionBarActivity {
                                 if (photoJSON.getString("responseFlag").equals("success")) {
                                     Intent i = new Intent(getApplicationContext(), AlbumGridActivity.class);
                                     i.putExtra("albumId",albumId);
+                                    i.putExtra("menuFlag",1);
                                     startActivity(i);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();

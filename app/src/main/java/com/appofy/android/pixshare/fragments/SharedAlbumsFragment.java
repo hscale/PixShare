@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,7 +19,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.appofy.android.pixshare.AddNewAlbumActivity;
 import com.appofy.android.pixshare.AlbumGridActivity;
+import com.appofy.android.pixshare.InviteFriendsActivity;
+import com.appofy.android.pixshare.MyProfileActivity;
+import com.appofy.android.pixshare.PendingFriendRequestActivity;
 import com.appofy.android.pixshare.R;
 import com.appofy.android.pixshare.util.SessionManager;
 import com.loopj.android.http.AsyncHttpClient;
@@ -90,7 +95,7 @@ public class SharedAlbumsFragment extends Fragment {
                         lv.setAdapter(adapter);
 
                     } else {
-                        Toast.makeText(getActivity(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getActivity(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Error Occurred!", Toast.LENGTH_LONG).show();
@@ -114,11 +119,6 @@ public class SharedAlbumsFragment extends Fragment {
                 }
             }
         });
-
-
-
-
-
 
         /**
          * Enabling Search Filter
@@ -155,6 +155,7 @@ public class SharedAlbumsFragment extends Fragment {
                 Toast.makeText(getActivity().getBaseContext(),value,Toast.LENGTH_LONG).show();
                 Intent i = new Intent(getActivity(), AlbumGridActivity.class);
                 i.putExtra("albumId",albumIds[position]);
+                i.putExtra("menuFlag",2);
                 startActivity(i);
             }
         });
@@ -164,6 +165,27 @@ public class SharedAlbumsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(
             Menu menu, MenuInflater inflater) {
+        menu.clear();
         inflater.inflate(R.menu.menu_shared_album_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.invite_friends:
+                Intent inviteFriendsIntent = new Intent(getActivity().getApplicationContext(), InviteFriendsActivity.class);
+                startActivity(inviteFriendsIntent);
+                return true;
+            case R.id.signout:
+                session = new SessionManager(getActivity().getApplicationContext());
+                session.logoutUser();
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(getActivity().getApplicationContext(), MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

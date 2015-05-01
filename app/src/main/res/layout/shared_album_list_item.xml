@@ -8,10 +8,11 @@
 
     <!-- Product Name -->
     <TextView android:id="@+id/shared_album_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dip"
-        android:textSize="16dip"
-        android:textStyle="bold"/>
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#545454"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"/>
 
 </LinearLayout>

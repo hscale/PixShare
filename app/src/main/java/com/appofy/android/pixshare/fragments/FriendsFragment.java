@@ -120,7 +120,7 @@ public class FriendsFragment extends Fragment {
                                 friendImages.add(image);
                             }
                         } else {
-                            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception e) {
                         Toast.makeText(getActivity().getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();

@@ -12,7 +12,10 @@
     <TextView
         android:id="@+id/sharealbum_group_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:textSize="20sp"
+        android:textColor="#545454"
+        android:paddingTop="10dp"
         android:layout_toRightOf="@id/sharealbum_group_chk_box"
          />
 

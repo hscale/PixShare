@@ -94,7 +94,7 @@ public class LoginActivity extends ActionBarActivity {
         /*if(session.isLoggedIn()){
             LoginManager.getInstance().logOut();
         }*/
-        Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(getApplicationContext(), "User Login Status: " + session.isLoggedIn(), Toast.LENGTH_LONG).show();
 
         // Login button
         btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -157,10 +157,10 @@ public class LoginActivity extends ActionBarActivity {
                                         Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                 }
                             } catch (Exception e) {
-                                Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
                                 e.printStackTrace();
                             }
                         }
@@ -177,7 +177,7 @@ public class LoginActivity extends ActionBarActivity {
                             }
                             // When Http response code other than 404, 500
                             else {
-                                Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(getApplicationContext(), "Unexpected Error occurred, Check Internet Connection!", Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -353,10 +353,10 @@ public class LoginActivity extends ActionBarActivity {
                                                 startActivity(i);
                                                 finish();
                                             }else if(jobj.getString("responseFlag").equals("fail")){
-                                                Toast.makeText(getApplicationContext(),"Something went wrong, please contact Admin.",Toast.LENGTH_LONG);
+                                                //Toast.makeText(getApplicationContext(),"Something went wrong, please contact Admin.",Toast.LENGTH_LONG);
                                             }
                                         }catch(JSONException je){
-                                            Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
                                             je.printStackTrace();
                                         }
                                     }
@@ -425,7 +425,7 @@ public class LoginActivity extends ActionBarActivity {
                                                 if (!session.isLoggedIn()) {
                                                     LoginManager.getInstance().logOut();
                                                 }
-                                                Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                                                //Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                                             }
                                         } catch (Exception e) {
                                             if (!session.isLoggedIn()) {
@@ -460,13 +460,13 @@ public class LoginActivity extends ActionBarActivity {
                             if (!session.isLoggedIn()) {
                                 LoginManager.getInstance().logOut();
                             }
-                            Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                         }
                     } catch (Exception e) {
                         if (!session.isLoggedIn()) {
                             LoginManager.getInstance().logOut();
                         }
-                        Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();
                         e.printStackTrace();
                     }
                 }

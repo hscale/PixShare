@@ -240,6 +240,7 @@ public class ManageFriendsGroupsActivity extends ActionBarActivity {
                 Intent myProfileIntent = new Intent(getApplicationContext(), MyProfileActivity.class);
                 startActivity(myProfileIntent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

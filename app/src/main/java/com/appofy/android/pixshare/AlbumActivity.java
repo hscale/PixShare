@@ -87,7 +87,7 @@ public class AlbumActivity extends ActionBarActivity {
                         System.out.println(commentUserName);
 
                     } else {
-                        Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(), "Something went wrong, please contact Admin", Toast.LENGTH_LONG).show();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getApplicationContext(), "Error Occurred!", Toast.LENGTH_LONG).show();

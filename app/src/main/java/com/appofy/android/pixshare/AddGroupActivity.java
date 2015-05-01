@@ -210,6 +210,15 @@ public class AddGroupActivity extends ActionBarActivity {
                 Intent inviteFriendsIntent = new Intent(getApplicationContext(), InviteFriendsActivity.class);
                 startActivity(inviteFriendsIntent);
                 return true;
+
+            case R.id.signout:
+                session = new SessionManager(this);
+                session.logoutUser();
+                return true;
+            case R.id.my_profile:
+                Intent myProfileIntent = new Intent(this, MyProfileActivity.class);
+                startActivity(myProfileIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

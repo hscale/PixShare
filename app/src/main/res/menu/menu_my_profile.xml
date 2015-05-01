@@ -15,13 +15,8 @@
         app:showAsAction="never"
         android:title="Invite Friends"/>
     <item
-        android:id="@+id/my_profile"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="My Profile"/>
-    <item
         android:id="@+id/signout"
-        android:orderInCategory="3"
+        android:orderInCategory="2"
         app:showAsAction="never"
         android:title="SignOut"/>
 </menu>

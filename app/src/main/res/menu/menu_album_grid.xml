@@ -4,7 +4,7 @@
     tools:context="com.appofy.android.pixshare.AlbumGridActivity">
     <item
         android:id="@+id/add_photos_to_album"
-        android:icon="@drawable/ic_action_new"
+        android:icon="@drawable/ic_action_new_picture"
         app:showAsAction="ifRoom"
         android:title="add_photos_to_album" />
     <item
@@ -22,11 +22,6 @@
         android:orderInCategory="2"
         app:showAsAction="never"
         android:title="My Profile"/>
-    <item
-        android:id="@+id/friend_request"
-        android:orderInCategory="2"
-        app:showAsAction="never"
-        android:title="Friend Requests"/>
     <item
         android:id="@+id/signout"
         android:orderInCategory="3"

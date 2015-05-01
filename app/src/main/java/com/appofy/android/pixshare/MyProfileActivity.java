@@ -211,6 +211,7 @@ public class MyProfileActivity extends ActionBarActivity {
                 Intent inviteFriendsIntent = new Intent(getApplicationContext(), InviteFriendsActivity.class);
                 startActivity(inviteFriendsIntent);
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

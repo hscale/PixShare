@@ -78,11 +78,12 @@
         </activity>
         <activity
             android:name=".ManageFriendsGroupsActivity"
-            android:label="ManageFriendGroupActivity" >
+            android:label="Manage Groups"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".FriendProfileActivity"
-            android:label="FriendProfileActivity" >
+            android:label="Friend Profile" >
         </activity>
         <activity
             android:name=".InviteFriendsActivity"
@@ -90,7 +91,8 @@
         </activity>
         <activity
             android:name=".AddGroupActivity"
-            android:label="@string/title_activity_add_group" >
+            android:label="@string/title_activity_add_group"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".MyProfileActivity"
@@ -108,13 +110,11 @@
             android:name=".AddFriendToGroupActivity"
             android:label="@string/title_activity_add_friend_to_group" >
         </activity>
-        <activity
-            android:name=".FriendListAddToGroupActivity"
-            android:label="@string/title_activity_friend_list_add_to_group" >
-        </activity>
+
         <activity
             android:name=".AddNewPhotoActivity"
-            android:label="@string/title_activity_add_new_photo" >
+            android:label="@string/title_activity_add_new_photo"
+            android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
             android:name=".ViewCommentsActivity"

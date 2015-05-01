@@ -4,7 +4,7 @@
     tools:context="com.appofy.android.pixshare.fragments.GroupsFragment">
     <item
         android:id="@+id/add_group"
-        android:icon="@drawable/ic_action_new"
+        android:icon="@drawable/ic_action_add_group"
         app:showAsAction="ifRoom"
         android:orderInCategory="10"
         android:title="add_group" />

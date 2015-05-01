@@ -150,43 +150,73 @@ public class AlbumGridActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.menu_album_grid, menu);
+        if(getIntent().getIntExtra("menuFlag",0) == 2)
+            getMenuInflater().inflate(R.menu.menu_album_grid_2, menu);
+        else
+            getMenuInflater().inflate(R.menu.menu_album_grid, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add_photos_to_album:
-                Intent addAlbumIntent = new Intent(this, AddNewPhotoActivity.class);
-                addAlbumIntent.putExtra("albumId",albumId);
-                startActivity(addAlbumIntent);
-                return true;
 
-            case R.id.share_this_album:
-                Intent shareAlbumIntent = new Intent(this, ShareAlbumActivity.class);
-                shareAlbumIntent.putExtra("albumId",albumId);
-                startActivity(shareAlbumIntent);
-                return true;
+        if(getIntent().getIntExtra("menuFlag",0) == 1) {
+            switch (item.getItemId()) {
+                case R.id.add_photos_to_album:
+                    Intent addAlbumIntent = new Intent(this, AddNewPhotoActivity.class);
+                    addAlbumIntent.putExtra("albumId", albumId);
+                    startActivity(addAlbumIntent);
+                    return true;
 
-            case R.id.invite_friends:
-                Intent inviteFriendsIntent = new Intent(this, InviteFriendsActivity.class);
-                startActivity(inviteFriendsIntent);
-                return true;
-            case R.id.friend_request:
-                Intent pendingFriendRequestIntent = new Intent(this, PendingFriendRequestActivity.class);
-                startActivity(pendingFriendRequestIntent);
-                return true;
-            case R.id.signout:
-                session = new SessionManager(getApplicationContext());
-                session.logoutUser();
-                return true;
-            case R.id.my_profile:
-                Intent myProfileIntent = new Intent(this, MyProfileActivity.class);
-                startActivity(myProfileIntent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+                case R.id.share_this_album:
+                    Intent shareAlbumIntent = new Intent(this, ShareAlbumActivity.class);
+                    shareAlbumIntent.putExtra("albumId", albumId);
+                    startActivity(shareAlbumIntent);
+                    return true;
+
+                case R.id.invite_friends:
+                    Intent inviteFriendsIntent = new Intent(this, InviteFriendsActivity.class);
+                    startActivity(inviteFriendsIntent);
+                    return true;
+                case R.id.friend_request:
+                    Intent pendingFriendRequestIntent = new Intent(this, PendingFriendRequestActivity.class);
+                    startActivity(pendingFriendRequestIntent);
+                    return true;
+                case R.id.signout:
+                    session = new SessionManager(getApplicationContext());
+                    session.logoutUser();
+                    return true;
+                case R.id.my_profile:
+                    Intent myProfileIntent = new Intent(this, MyProfileActivity.class);
+                    startActivity(myProfileIntent);
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
+        else
+        {
+            switch (item.getItemId()) {
+                case R.id.invite_friends:
+                    Intent inviteFriendsIntent = new Intent(this, InviteFriendsActivity.class);
+                    startActivity(inviteFriendsIntent);
+                    return true;
+                case R.id.friend_request:
+                    Intent pendingFriendRequestIntent = new Intent(this, PendingFriendRequestActivity.class);
+                    startActivity(pendingFriendRequestIntent);
+                    return true;
+                case R.id.signout:
+                    session = new SessionManager(getApplicationContext());
+                    session.logoutUser();
+                    return true;
+                case R.id.my_profile:
+                    Intent myProfileIntent = new Intent(this, MyProfileActivity.class);
+                    startActivity(myProfileIntent);
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
+        }
+
     }
 }
