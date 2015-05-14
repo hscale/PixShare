@@ -42,7 +42,7 @@ public class SharedAlbumsFragment extends Fragment {
     // Listview Adapter
     ArrayAdapter<String> adapter;
 
-    String url = "http://52.8.12.67:8080/pixsharebusinessservice/rest";
+    String url = "http://52.8.53.106:8080/pixsharebusinessservice/rest";
     String sectionurl = "/photo";
     String suburl = "/user/albums";
     String desturl = null;

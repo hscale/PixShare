@@ -43,7 +43,7 @@ public class AlbumsFragment extends Fragment {
     EditText inputSearch;
     ArrayAdapter<String> adapter;
 
-    String url = "http://52.8.12.67:8080/pixsharebusinessservice/rest";
+    String url = "http://52.8.53.106:8080/pixsharebusinessservice/rest";
     String sectionurl = "/photo";
     String suburl = "/albums";
     String desturl = null;

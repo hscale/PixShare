@@ -4,13 +4,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="com.appofy.android.pixshare.AddFriendActivity">
+    tools:context="com.appofy.android.pixshare.AddFriendActivity"
+    android:background="@drawable/background">
 
     <!-- Editext for Search -->
     <EditText android:id="@+id/inputFriendSendEmail"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Invite Friend By Email.."
+        android:layout_height="200dp"
+        android:hint="Invite Friends By Email.."
         android:inputType="textVisiblePassword"
         android:layout_marginTop="89dp"
         android:layout_alignParentTop="true"
@@ -18,11 +19,12 @@
 
     <Button android:id="@+id/inputFriendSendEmailBtn"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Send Invite"
         android:layout_below="@+id/inputFriendSendEmail"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#ffe57e19" />
 
     <Button android:id="@+id/inputFriendFBInviteBtn"
         style="?android:attr/buttonStyleSmall"

@@ -5,7 +5,7 @@ package com.appofy.android.pixshare.util;
  */
 public class Constants {
     //API URL PROD
-    public final static String initialURL = "http://52.8.12.67:8080/pixsharebusinessservice/rest";
+    public final static String initialURL = "http://52.8.53.106:8080/pixsharebusinessservice/rest";
 
     //API URL DEV
     //public final static String initialURL = "http://10.0.2.2:8080/PixShareBusinessService/rest";

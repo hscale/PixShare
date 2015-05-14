@@ -2,13 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <Button android:id="@+id/submitSelectGroupsBtn"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Share with selected Groups"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="#ffe57e19" />
     <ListView
         android:id="@+id/sharealbum_group_list"
         android:layout_width="match_parent"

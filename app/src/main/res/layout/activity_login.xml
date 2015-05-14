@@ -4,14 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dip">
+    android:padding="10dip"
+    android:gravity="center_vertical"
+    android:weightSum="1"
+    android:background="@drawable/background">
 
     <!-- Email input text -->
+    <ImageView
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:contentDescription="PixShare"
+        android:src="@drawable/pixshare"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.33" />
+
     <EditText android:id="@+id/txtUsername"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"
-        android:hint="User Name"/>
+        android:hint="User Name"
+        android:inputType="text" />
 
     <!-- Password input text -->
     <EditText android:id="@+id/txtPassword"
@@ -20,31 +33,49 @@
         android:layout_marginBottom="20dip"
         android:password="true"
         android:singleLine="true"
-        android:hint="Password"/>
+        android:hint="Password" />
 
     <!-- Login button -->
     <Button android:id="@+id/btnLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Login"/>
+        android:text="Login"
+        android:background="#ffe57e19" />
 
     <!-- Login with Facebook button -->
+
+    <!-- Register button -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="or"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/fb_login_button"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="5dp"
-        android:layout_gravity="center_horizontal"
         facebook:confirm_logout="false"
         facebook:tooltip_mode="never_display"
         />
 
-    <!-- Register button -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="New User?"
+        android:id="@+id/textView4"
+        android:layout_gravity="center_horizontal"
+        android:paddingTop="20dp" />
+
     <Button android:id="@+id/btnRegister"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Register"/>
-
+        android:text="Register"
+        android:background="#ff3161b9" />
 
 
 </LinearLayout>
